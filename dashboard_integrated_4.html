@@ -8,20 +8,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;
-  --border:rgba(255,255,255,0.07);
-  --text:#e8eaf0;--text2:#8892a4;--text3:#545e6f;
-  --blue:#3b82f6;--bdim:rgba(59,130,246,.15);
-  --green:#10b981;--gdim:rgba(16,185,129,.15);
-  --amber:#f59e0b;--adim:rgba(245,158,11,.12);
-  --red:#ef4444;--rdim:rgba(239,68,68,.12);
-  --purple:#8b5cf6;--pdim:rgba(139,92,246,.12);
+  --bg:#f6f8fb;--bg2:#ffffff;--bg3:#eef2f7;
+  --border:rgba(15,23,42,.08);
+  --border-strong:rgba(15,23,42,.14);
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  /* クリーンで上品な配色 — 高彩度・中明度 */
+  --blue:#3b82f6;     --bdim:rgba(59,130,246,.10);
+  --green:#10b981;    --gdim:rgba(16,185,129,.10);
+  --amber:#f59e0b;    --adim:rgba(245,158,11,.10);
+  --red:#ef4444;      --rdim:rgba(239,68,68,.10);
+  --purple:#8b5cf6;   --pdim:rgba(139,92,246,.10);
   --teal:#14b8a6;
-  --teal:#14b8a6;
+  --shadow:0 1px 2px rgba(15,23,42,.04),0 1px 1px rgba(15,23,42,.05);
+  /* スタッフ識別色 — 彩度を保ちつつ4色を確実に区別 */
+  --staff-kondo:#6366f1;     /* 鮮やかなインディゴ */
+  --staff-takada:#0ea5e9;    /* スカイブルー */
+  --staff-ogawa:#f59e0b;     /* クリーンなアンバー */
+  --staff-hashimoto:#ec4899; /* 鮮やかなローズ */
   --r:10px;--rsm:6px
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.5;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
 .hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .hdr-l{display:flex;align-items:center;gap:14px}
 .logo{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
@@ -39,18 +46,17 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .tab-btn.active{color:var(--text);border-bottom-color:var(--blue)}
 .tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .tab-pane{display:none}.tab-pane.active{display:block}
-.fbadge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:2px}
-.bm{background:rgba(59,130,246,.15);color:var(--blue)}
-.ba{background:rgba(16,185,129,.15);color:var(--green)}
-.bc{background:rgba(139,92,246,.15);color:var(--purple)}
-.bp{background:rgba(245,158,11,.15);color:var(--amber)}
+
+
+
+
 
 .main{padding:20px 24px;max-width:1400px;margin:0 auto}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 
-.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0}
 .kpi.b::before{background:var(--blue)}.kpi.g::before{background:var(--green)}
 .kpi.r::before{background:var(--red)}.kpi.a::before{background:var(--amber)}
@@ -61,7 +67,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .ksub{font-size:10px;color:var(--text3)}
 .ksub .up{color:var(--green)}.ksub .dn{color:var(--red)}
 
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:14px}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
 .ctitle{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .cdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
@@ -72,22 +78,22 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .tbl tr:hover td{background:rgba(255,255,255,.02)}
 
 .bdg{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap}
-.bg{background:var(--gdim);color:var(--green);border:1px solid rgba(16,185,129,.25)}
-.br{background:var(--rdim);color:var(--red);border:1px solid rgba(239,68,68,.25)}
-.ba-bdg{background:var(--adim);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.bg{background:var(--gdim);color:var(--green);border:1px solid rgba(16,185,129,.28)}
+.br{background:var(--rdim);color:var(--red);border:1px solid rgba(239,68,68,.28)}
+.ba-bdg{background:var(--adim);color:var(--amber);border:1px solid rgba(245,158,11,.28)}
 .bb{background:var(--bdim);color:var(--blue);border:1px solid rgba(59,130,246,.25)}
 .bp-bdg{background:var(--pdim);color:var(--purple);border:1px solid rgba(139,92,246,.25)}
-.bt{background:rgba(20,184,166,.12);color:var(--teal);border:1px solid rgba(20,184,166,.25)}
+
 
 .mrow{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .mlbl{font-size:11px;color:var(--text2);width:70px;text-align:right;flex-shrink:0}
-.mtrk{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.mtrk{flex:1;height:8px;background:rgba(0,0,0,.05);border-radius:4px;overflow:hidden}
 .mfil{height:100%;border-radius:4px}
 .mval{font-size:11px;font-weight:500;color:var(--text);width:42px;text-align:right;font-family:'DM Mono',monospace}
 
 .prow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .plbl{font-size:11px;color:var(--text2);flex:1}
-.ptrk{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.ptrk{flex:1;height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden}
 .pfil{height:100%;border-radius:3px}
 .pval{font-size:11px;font-weight:500;color:var(--text);width:40px;text-align:right;font-family:'DM Mono',monospace}
 
@@ -98,13 +104,51 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
 .total-row{background:rgba(255,255,255,.03);border-top:1px solid var(--border)!important}
 .mono{font-family:'DM Mono',monospace}
 
-.new-badge{font-size:9px;background:rgba(16,185,129,.2);color:var(--green);border:1px solid rgba(16,185,129,.3);padding:1px 6px;border-radius:99px;margin-left:6px}
+.new-badge{font-size:9px;font-weight:600;padding:1px 6px;background:rgba(16,185,129,.10);color:var(--green);border:1px solid rgba(16,185,129,.22);border-radius:3px;margin-left:4px;letter-spacing:.3px}
 .div{border:none;border-top:1px solid var(--border);margin:12px 0}
 .ftr{text-align:center;padding:20px;font-size:10px;color:var(--text3);border-top:1px solid var(--border);margin-top:4px}
 
 /* ===== 要更新（TODO）マーカー — このスタイルを目印に編集してください ===== */
-.todo{border:1px dashed rgba(245,158,11,.45)!important;background:rgba(245,158,11,.05)!important;position:relative}
-.todo-badge{display:inline-block;font-size:9px;font-weight:700;background:rgba(245,158,11,.2);color:var(--amber);border:1px solid rgba(245,158,11,.4);padding:1px 7px;border-radius:99px;margin-left:6px;letter-spacing:.5px}
+.todo{border:1px dashed rgba(245,158,11,.45)!important;background:rgba(245,158,11,.07)!important;position:relative}
+.contact-cb{width:16px;height:16px;cursor:pointer;accent-color:var(--green);margin:0}
+tr.contacted{background:rgba(16,185,129,.07)!important;opacity:.55}
+tr.contacted td:not(:last-child){text-decoration:line-through;text-decoration-color:rgba(0,0,0,.35)}
+.contact-date{display:block;font-size:8px;color:var(--green);margin-top:2px;font-family:var(--mono)}
+.contact-cell{text-align:center;white-space:nowrap}
+.cbtn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;font-size:10.5px;font-weight:600;color:var(--text2);background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:14px;cursor:pointer;transition:all .15s;font-family:inherit}
+.cbtn:hover{background:rgba(0,0,0,.06);color:var(--text)}
+.cbtn.danger:hover{background:rgba(239,68,68,.10);color:var(--red);border-color:rgba(239,68,68,.4)}
+.cbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.psel{height:30px;padding:0 28px 0 10px;font-size:11.5px;font-weight:600;color:var(--text);background:var(--bg2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:inherit;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%3E%3Cpath%20d%3D%22M0%200l5%206%205-6z%22%20fill%3D%22%23475569%22/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;transition:all .15s}
+.psel:hover{border-color:rgba(37,99,235,.3)}
+.psel:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.psel:disabled{color:var(--text3);cursor:not-allowed;opacity:.6}
+.psel option:disabled{color:var(--text3)}
+.psel.dim{opacity:.5}
+.allbtn{height:30px;padding:0 14px;font-size:11.5px;font-weight:600;color:var(--text2);background:var(--bg2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.allbtn:hover{color:var(--text);border-color:rgba(37,99,235,.3)}
+.allbtn.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 1px 3px rgba(37,99,235,.3)}
+.allbtn.active::before{content:"✓ ";font-weight:700}
+.psep{font-size:10.5px;color:var(--text3);margin:0 2px}
+.mseg{display:inline-flex;background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:8px;padding:3px;gap:2px}
+.mseg button{padding:6px 14px;font-size:11px;font-weight:600;color:var(--text2);background:none;border:none;cursor:pointer;border-radius:6px;font-family:inherit;transition:all .15s}
+.mseg button:hover{color:var(--text)}
+.mseg button.active{background:var(--bg2);color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.mseg-bar{display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(135deg,rgba(37,99,235,.04),rgba(124,58,237,.03));border:1px solid rgba(37,99,235,.15);border-radius:var(--rsm);margin-bottom:12px;flex-wrap:wrap}
+.mseg-label{font-size:11px;font-weight:700;color:var(--text);letter-spacing:.5px}
+.mseg-stat{font-size:11px;color:var(--text2);margin-left:auto}
+.mseg-stat strong{color:var(--text);font-family:'DM Mono',monospace;margin:0 2px}
+.cfchip{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;font-size:10.5px;font-weight:600;color:var(--text2);background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);border-radius:14px;cursor:pointer;transition:all .15s;font-family:inherit}
+.cfchip:hover{background:rgba(0,0,0,.06);color:var(--text);border-color:rgba(255,255,255,.25)}
+.cfchip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cfchip .cfn{display:inline-block;padding:1px 5px;font-size:9.5px;background:rgba(255,255,255,.22);border-radius:8px;color:inherit;font-weight:700}
+.cfchip .cfr{display:inline-block;padding:1px 5px;font-size:9px;background:rgba(16,185,129,.10);color:var(--green);border-radius:8px;font-weight:700}
+.cfchip.active .cfr{background:rgba(255,255,255,.25);color:#fff}
+.cfchip[data-fcat="invisa"] .cfr{background:rgba(239,68,68,.10);color:var(--red)}
+.cfchip[data-fcat="mrc"] .cfr{background:rgba(245,158,11,.10);color:var(--amber)}
+.cfchip[data-fcat="fukutsuCr"] .cfr,.cfchip[data-fcat="fukutsuIn"] .cfr{background:rgba(245,158,11,.10);color:var(--amber)}
+.cfchip.active[data-fcat="invisa"] .cfr,.cfchip.active[data-fcat="mrc"] .cfr,.cfchip.active[data-fcat="fukutsuCr"] .cfr,.cfchip.active[data-fcat="fukutsuIn"] .cfr{background:rgba(255,255,255,.25);color:#fff}
+.todo-badge{font-size:9px;font-weight:600;padding:1px 6px;background:rgba(245,158,11,.10);color:var(--amber);border:1px solid rgba(245,158,11,.25);border-radius:3px;margin-left:4px;letter-spacing:.3px}
 .todo-val{color:var(--amber)!important;opacity:.85}
 .todo-row td{background:rgba(245,158,11,.04)!important;color:var(--amber)!important;font-style:italic}
 .todo-note{font-size:10px;color:var(--amber);background:rgba(245,158,11,.08);border:1px dashed rgba(245,158,11,.35);border-radius:var(--rsm);padding:8px 12px;margin-top:8px;line-height:1.6}
@@ -121,49 +165,39 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <div class="live"><span class="ldot"></span>ライブデータ</div>
-    <div class="dchip">2026年4月26日 更新</div>
+    <div class="dchip">2026年4月28日 更新</div>
   </div>
 </header>
 
 <nav class="tab-nav">
   <button class="tab-btn active" onclick="showTab('today')" id="btn-today">
     <span class="tab-dot" style="background:var(--teal)"></span>今日の予約
-    <span class="fbadge" style="background:rgba(20,184,166,.15);color:var(--teal)">TODAY</span>
   </button>
   <button class="tab-btn" onclick="showTab('recall')" id="btn-recall">
     <span class="tab-dot" style="background:var(--green)"></span>リコール・キャンセル
-    <span class="fbadge" style="background:rgba(16,185,129,.15);color:var(--green)">RECALL</span>
   </button>
-  <button class="tab-btn" onclick="showTab('mar')" id="btn-mar">
-    <span class="tab-dot" style="background:var(--blue)"></span>3月集計
-    <span class="fbadge bm">MAR</span>
-  </button>
-  <button class="tab-btn" onclick="showTab('apr')" id="btn-apr">
-    <span class="tab-dot" style="background:var(--green)"></span>4月集計（〜4/26）
-    <span class="fbadge ba">APR</span>
+  <button class="tab-btn" onclick="showTab('monthly')" id="btn-monthly">
+    <span class="tab-dot" style="background:var(--blue)"></span>月別集計
   </button>
   <button class="tab-btn" onclick="showTab('consult')" id="btn-consult">
     <span class="tab-dot" style="background:var(--purple)"></span>コンサル成約率
-    <span class="fbadge bc">CONSULT</span>
   </button>
   <button class="tab-btn" onclick="showTab('payment')" id="btn-payment">
     <span class="tab-dot" style="background:var(--amber)"></span>自費入金
-    <span class="fbadge bp">PAYMENT</span>
   </button>
   <button class="tab-btn" onclick="showTab('unscheduled')" id="btn-unscheduled">
     <span class="tab-dot" style="background:var(--red)"></span>3ヶ月以上 予約なし
-    <span class="fbadge" style="background:rgba(239,68,68,.15);color:var(--red)">要フォロー</span>
   </button>
 </nav>
 
 <main class="main">
 
-<!-- ===== 更新サマリー（4/26時点） ===== -->
-<div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;font-size:12px;line-height:1.7">
-  <div style="font-weight:700;color:var(--text);margin-bottom:6px;font-size:13px">📋 4/26 更新サマリー</div>
+<!-- ===== 更新サマリー（4/28本日時点） ===== -->
+<div style="background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(59,130,246,.05));border:1px solid rgba(16,185,129,.20);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;font-size:12px;line-height:1.7">
+  <div style="font-weight:700;color:var(--text);margin-bottom:6px;font-size:13px">📋 4/28 本日時点 更新サマリー</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px">
-    <div><span style="color:var(--green);font-weight:700">✓ 4/26 確定値で更新済み</span><br><span style="color:var(--text2);font-size:11px">3月集計（全項目）／ 4月集計（来院・予約・リコール・キャンセル合計と内訳・予約未定者率）／ <strong>3ヶ月以上予約なし患者リスト（203件・上位37件）</strong>／ リコール・キャンセル4月主要KPI</span></div>
-    <div><span style="color:var(--amber);font-weight:700">⚠ 要更新（黄色マーカーで明示）</span><br><span style="color:var(--text2);font-size:11px">4月Web予約数 ／ コンサル4/8〜4/26 ／ 入金4/17〜4/26＋予定3件の確定状況 ／ キャンセル週別(4/15週・4/22週) ／ キャンセル理由 ／ 今日の予約タブ(任意の最新営業日へ)</span></div>
+    <div><span style="color:var(--green);font-weight:700">✓ 本日まで取得・反映済み</span><br><span style="color:var(--text2);font-size:11px">月別集計（3月・4月切替）／ <strong>コンサル50件（治療内容絞込・月切替）</strong>／ <strong>入金26件（黒=済/黄=予定の自動判定・月切替）</strong>／ <strong>予約途切れ患者203件中50件（連絡済チェック機能付）</strong>／ クリーンな配色・スタッフ識別色</span></div>
+    <div><span style="color:var(--amber);font-weight:700">⚠ ブラウザ取得が必要な残項目</span><br><span style="color:var(--text2);font-size:11px">4月Web予約数（クリニックデータ→Web予約）／ キャンセル週別 4/15週・4/22週の日別内訳（合計23件は確定）／ キャンセル理由内訳（体調不良/用事/忘れ等・合計54件は確定）／ 今日の予約タブ（任意で4/28分に差替可）</span></div>
   </div>
 </div>
 
@@ -299,200 +333,146 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
   <div class="card">
     <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>4月 キャンセル週別推移<span class="todo-badge">要更新</span></div>
-    <div class="todo-note">⚠ 週別推移グラフ（recallCancelChart）は「4月集計」タブの週別データと連動するため、そちらを更新後に整合させてください。<br>確定値: 4/1週=16件、4/8週=15件、4/15週+4/22週=合計23件（個別内訳は要取得）。</div>
+    <div class="todo-note">⚠ 週別推移グラフ（recallCancelChart）は「月別集計」タブ（4月選択時）の週別データと連動するため、そちらを更新後に整合させてください。<br>確定値: 4/1週=16件、4/8週=15件、4/15週+4/22週=合計23件（個別内訳は要取得）。</div>
     <div style="position:relative;height:180px;opacity:.5"><canvas id="recallCancelChart"></canvas></div>
   </div>
 </div>
 
 <!-- ===== 3月タブ ===== -->
-<div id="pane-mar" class="tab-pane active">
+<!-- ===== 月別集計タブ（3月/4月切替対応） ===== -->
+<div id="pane-monthly" class="tab-pane active">
+  <div class="mseg-bar">
+    <span class="mseg-label">📅 期間選択</span>
+    <select class="psel" id="monthlyYearSel" onchange="onMonthlyPeriodChange()">
+      <option value="2026" selected>2026年</option>
+    </select>
+    <select class="psel" id="monthlyMonthSel" onchange="onMonthlyPeriodChange()">
+      <!-- 月オプションはJSで生成 -->
+    </select>
+    <span class="mseg-stat" id="monthlyMonthStat" style="margin-left:auto"></span>
+  </div>
+
+  <!-- メインKPI 4枚 -->
   <div class="g4">
     <div class="kpi r">
-      <div class="klbl">3月 キャンセル数</div>
-      <div class="kval r">64</div>
-      <div class="ksub">目安：月60件以内</div>
+      <div class="klbl" id="mLbl1">月 キャンセル数</div>
+      <div class="kval r" id="mVal1">—</div>
+      <div class="ksub" id="mSub1">—</div>
     </div>
     <div class="kpi b">
-      <div class="klbl">3月 Web予約数</div>
-      <div class="kval b">84</div>
-      <div class="ksub">月間Web予約総数</div>
+      <div class="klbl" id="mLbl2">月 Web予約数</div>
+      <div class="kval b" id="mVal2">—</div>
+      <div class="ksub" id="mSub2">—</div>
     </div>
     <div class="kpi p">
-      <div class="klbl">3月 コンサル成約率</div>
-      <div class="kval p">78%</div>
-      <div class="ksub">27件中 成約21件（保留除く）</div>
+      <div class="klbl" id="mLbl3">月 コンサル成約率</div>
+      <div class="kval p" id="mVal3">—</div>
+      <div class="ksub" id="mSub3">—</div>
     </div>
     <div class="kpi g">
-      <div class="klbl">3月 自費売上</div>
-      <div class="kval g">¥2,237K</div>
-      <div class="ksub">入金確認9件</div>
+      <div class="klbl" id="mLbl4">月 自費売上</div>
+      <div class="kval g" id="mVal4">—</div>
+      <div class="ksub" id="mSub4">—</div>
     </div>
   </div>
+
+  <!-- セカンダリKPI 4枚（来院・リコール系） -->
+  <div class="g4">
+    <div class="kpi b">
+      <div class="klbl" id="mLbl5">月 来院／総予約数</div>
+      <div class="kval b" id="mVal5">—</div>
+      <div class="ksub" id="mSub5">—</div>
+    </div>
+    <div class="kpi g">
+      <div class="klbl" id="mLbl6">月 リコール来院率</div>
+      <div class="kval g" id="mVal6">—</div>
+      <div class="ksub" id="mSub6">—</div>
+    </div>
+    <div class="kpi a">
+      <div class="klbl" id="mLbl7">月 リコール予約取得率</div>
+      <div class="kval a" id="mVal7">—</div>
+      <div class="ksub" id="mSub7">—</div>
+    </div>
+    <div class="kpi r">
+      <div class="klbl" id="mLbl8">月 予約未定者率</div>
+      <div class="kval r" id="mVal8">—</div>
+      <div class="ksub" id="mSub8">—</div>
+    </div>
+  </div>
+
+  <!-- 2カラム: 週別キャンセル / 自費入金内訳 -->
   <div class="g2">
     <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>3月 キャンセル週別推移</div>
-      <div class="mrow"><span class="mlbl">3/2週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
-      <div class="mrow"><span class="mlbl">3/9週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
-      <div class="mrow"><span class="mlbl">3/16週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
-      <div class="mrow"><span class="mlbl">3/23週</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--red)"></div></div><span class="mval">25件</span></div>
-      <hr class="div">
-      <div style="position:relative;height:160px"><canvas id="marCancelChart"></canvas></div>
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span><span id="weekCancelTitle">月 キャンセル週別推移</span></div>
+      <div id="weekCancelRows"></div>
+      <div id="weekCancelNote" style="display:none" class="todo-note"></div>
     </div>
     <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>3月 自費入金内訳</div>
-      <div class="mrow"><span class="mlbl">MRC矯正</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--purple)"></div></div><span class="mval">¥1,323K</span></div>
-      <div class="mrow"><span class="mlbl">インビザ</span><div class="mtrk"><div class="mfil" style="width:29%;background:var(--blue)"></div></div><span class="mval">¥385K</span></div>
-      <div class="mrow"><span class="mlbl">インプラント</span><div class="mtrk"><div class="mfil" style="width:37%;background:var(--red)"></div></div><span class="mval">¥495K</span></div>
-      <div class="mrow"><span class="mlbl">自費RCT等</span><div class="mtrk"><div class="mfil" style="width:14%;background:var(--teal)"></div></div><span class="mval">¥183K</span></div>
-      <div class="mrow"><span class="mlbl">補綴</span><div class="mtrk"><div class="mfil" style="width:3%;background:var(--amber)"></div></div><span class="mval">¥44K</span></div>
+      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span><span id="payBreakdownTitle">月 自費入金内訳</span></div>
+      <div id="payBreakdownRows"></div>
       <hr class="div">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-        <div class="rcs"><div class="rcsv" style="color:var(--green)">¥2,237K</div><div class="rcsl">3月入金済み</div></div>
-        <div class="rcs"><div class="rcsv" style="color:var(--blue)">9件</div><div class="rcsl">入金件数</div></div>
-        <div class="rcs"><div class="rcsv" style="color:var(--amber)">¥249K</div><div class="rcsl">平均単価</div></div>
-      </div>
+      <div id="paySummaryGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"></div>
     </div>
   </div>
+
+  <!-- スタッフ別コンサル -->
   <div class="card">
-    <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>3月 コンサル スタッフ別</div>
+    <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span><span id="staffTableTitle">月 コンサル スタッフ別</span></div>
     <table class="tbl">
       <colgroup><col style="width:80px"><col style="width:60px"><col style="width:60px"><col style="width:60px"><col style="width:80px"><col></colgroup>
       <thead><tr><th>スタッフ</th><th>成約</th><th>不成約</th><th>保留</th><th>成約率</th><th>主な治療</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:500;color:var(--green)">橋本</td><td class="mono" style="color:var(--green)">7</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">2</td><td><span class="bdg bg">78%</span></td><td style="font-size:10px;color:var(--text2)">MRC矯正×3、補綴In×2</td></tr>
-        <tr><td style="font-weight:500;color:var(--blue)">高田</td><td class="mono" style="color:var(--green)">5</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">1</td><td><span class="bdg bg">83%</span></td><td style="font-size:10px;color:var(--text2)">補綴In×3、自費RCT×1</td></tr>
-        <tr><td style="font-weight:500;color:var(--teal)">小川</td><td class="mono" style="color:var(--green)">3</td><td class="mono" style="color:var(--red)">2</td><td class="mono" style="color:var(--amber)">0</td><td><span class="bdg ba-bdg">60%</span></td><td style="font-size:10px;color:var(--text2)">ダイレクト×2、補綴In×1</td></tr>
-        <tr><td style="font-weight:500;color:var(--purple)">近藤</td><td class="mono" style="color:var(--green)">3</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">1</td><td><span class="bdg bg">75%</span></td><td style="font-size:10px;color:var(--text2)">MRC矯正×1、自費RCT×2</td></tr>
-        <tr class="total-row"><td style="font-weight:700">合計</td><td class="mono" style="font-weight:700;color:var(--green)">18</td><td class="mono" style="font-weight:700;color:var(--red)">5</td><td class="mono" style="font-weight:700;color:var(--amber)">4</td><td><span class="bdg bg">78%</span></td><td style="font-size:10px;color:var(--text2)">保留除く27件中</td></tr>
-      </tbody>
+      <tbody id="staffTableBody"></tbody>
     </table>
-  </div>
-</div>
-
-<!-- ===== 4月タブ ===== -->
-<div id="pane-apr" class="tab-pane">
-  <div class="g4">
-    <div class="kpi r">
-      <div class="klbl">4月 キャンセル数（〜4/26）</div>
-      <div class="kval r">54</div>
-      <div class="ksub">内訳: 無断2 / 間際19 / 事前7 / Web26 / その他0（11.6%）</div>
-    </div>
-    <div class="kpi b todo">
-      <div class="klbl">4月 Web予約数（〜4/26）<span class="todo-badge">要更新</span></div>
-      <div class="kval b todo-val">—</div>
-      <div class="ksub">前回〜4/16: 51件 ／ アポツール再取得待ち</div>
-    </div>
-    <div class="kpi p todo">
-      <div class="klbl">4月 コンサル成約率<span class="todo-badge">要更新</span></div>
-      <div class="kval p todo-val">60%<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/7時点</span></div>
-      <div class="ksub">前回〜4/7: 5件中3件成約 ／ 4/8以降の追加分は未取得</div>
-    </div>
-    <div class="kpi g todo">
-      <div class="klbl">4月 自費入金見込み<span class="todo-badge">要更新</span></div>
-      <div class="kval g todo-val">¥2,115K<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/16時点</span></div>
-      <div class="ksub">確認済¥1,150K＋予定¥965K ／ 4/17以降は未取得</div>
-    </div>
-  </div>
-  <div class="g4">
-    <div class="kpi b">
-      <div class="klbl">4月 来院／総予約数</div>
-      <div class="kval b">289<span style="font-size:14px;color:var(--text3)"> / 464</span></div>
-      <div class="ksub">来院率 62.3%（クリニックデータ確定値）</div>
-    </div>
-    <div class="kpi g">
-      <div class="klbl">4月 リコール来院率</div>
-      <div class="kval g">90.1%</div>
-      <div class="ksub">対象111／予約91／来院82</div>
-    </div>
-    <div class="kpi a">
-      <div class="klbl">4月 リコール予約取得率</div>
-      <div class="kval a">82%</div>
-      <div class="ksub">対象111／予約91（目標80%以上 ✓）</div>
-    </div>
-    <div class="kpi r">
-      <div class="klbl">4月 予約未定者率</div>
-      <div class="kval r">6.5%</div>
-      <div class="ksub">30件（前月4.9%から +1.6pt）</div>
-    </div>
-  </div>
-  <div class="g2">
-    <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>4月 キャンセル週別<span class="todo-badge">一部要更新</span></div>
-      <div class="mrow"><span class="mlbl">4/1週</span><div class="mtrk"><div class="mfil" style="width:84%;background:var(--red)"></div></div><span class="mval">16件</span></div>
-      <div class="mrow"><span class="mlbl">4/8週</span><div class="mtrk"><div class="mfil" style="width:79%;background:var(--amber)"></div></div><span class="mval">15件</span></div>
-      <div class="mrow todo"><span class="mlbl">4/15週</span><div class="mtrk"><div class="mfil" style="width:30%;background:var(--amber);opacity:.6"></div></div><span class="mval todo-val">要更新</span></div>
-      <div class="mrow todo"><span class="mlbl">4/22週</span><div class="mtrk"><div class="mfil" style="width:30%;background:var(--amber);opacity:.6"></div></div><span class="mval todo-val">要更新</span></div>
-      <div class="todo-note">⚠ 4/15週・4/22週の合計は <strong>23件</strong>（54 − 16 − 15）。<br>アポツール「遅刻とキャンセル者」で日付別の正確な内訳を確認して、上記2行のmval（◯件）と.mfil width(%) を更新してください。</div>
-      <hr class="div">
-      <div style="font-size:11px;color:var(--text2);margin-bottom:8px">日別キャンセル（多い日）<span class="todo-badge">一部要更新</span></div>
-      <div class="mrow"><span class="mlbl">4/4（土）</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--red)"></div></div><span class="mval">7件</span></div>
-      <div class="mrow"><span class="mlbl">4/1（水）</span><div class="mtrk"><div class="mfil" style="width:57%;background:var(--amber)"></div></div><span class="mval">4件</span></div>
-      <div class="mrow"><span class="mlbl">4/7（火）</span><div class="mtrk"><div class="mfil" style="width:43%;background:var(--amber)"></div></div><span class="mval">3件</span></div>
-      <div class="mrow"><span class="mlbl">4/8（水）</span><div class="mtrk"><div class="mfil" style="width:43%;background:var(--amber)"></div></div><span class="mval">3件</span></div>
-      <div class="todo-note">⚠ 4/17以降の日別ピークは未取得。アポツールで4/17〜4/26の間に同水準（3件以上）の日があれば追記してください。</div>
-    </div>
-    <div class="card todo">
-      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>4月 自費入金（確認済＋予定）<span class="todo-badge">要更新</span></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
-        <div class="rcs"><div class="rcsv" style="color:var(--blue)">¥1,150K</div><div class="rcsl">入金済み（〜4/7）</div></div>
-        <div class="rcs"><div class="rcsv" style="color:var(--amber)">¥965K</div><div class="rcsl">入金予定（4/8〜）</div></div>
-      </div>
-      <div class="mrow"><span class="mlbl">MRC矯正</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--purple)"></div></div><span class="mval">¥715K</span></div>
-      <div class="mrow"><span class="mlbl">インビザ</span><div class="mtrk"><div class="mfil" style="width:27%;background:var(--blue)"></div></div><span class="mval">¥193K</span></div>
-      <div class="mrow"><span class="mlbl">自費RCT等</span><div class="mtrk"><div class="mfil" style="width:18%;background:var(--teal)"></div></div><span class="mval">¥132K</span></div>
-      <div class="mrow"><span class="mlbl">補綴</span><div class="mtrk"><div class="mfil" style="width:15%;background:var(--amber)"></div></div><span class="mval">¥110K</span></div>
-      <hr class="div">
-      <div class="todo-note">⚠ 上記は前回4/16時点の集計のまま。4/17〜4/26の入金確定額・予定変動は「自費入金」タブの詳細表を更新してから、このサマリも反映してください。</div>
-    </div>
+    <div id="monthlyNote" style="font-size:11px;color:var(--text2);line-height:1.6;margin-top:10px;padding:10px 12px;background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.15);border-radius:var(--rsm)"></div>
   </div>
 </div>
 
 <!-- ===== コンサルタブ ===== -->
 <div id="pane-consult" class="tab-pane">
   <div class="g4">
-    <div class="kpi g todo">
-      <div class="klbl">総合成約率（3/1〜4/7）<span class="todo-badge">要更新</span></div>
-      <div class="kval g todo-val">72%</div>
-      <div class="ksub">32件中 成約23件 ／ 4/8以降の追加分は未取得</div>
+    <div class="kpi g">
+      <div class="klbl">総合成約率（3/2〜4/25）</div>
+      <div class="kval g">64%</div>
+      <div class="ksub">50件中 成約32件（成約30+契約2）</div>
     </div>
-    <div class="kpi b todo">
-      <div class="klbl">自費補綴 成約率<span class="todo-badge">要更新</span></div>
-      <div class="kval b todo-val">67%</div>
-      <div class="ksub">18件中 12件成約 ／ 4/8以降の追加分は未取得</div>
+    <div class="kpi b">
+      <div class="klbl">自費補綴系 成約率</div>
+      <div class="kval b">71%</div>
+      <div class="ksub">28件中 20件成約（補綴Cr/補綴In/RCT/ダイレクト/IGO計）</div>
     </div>
-    <div class="kpi p todo">
-      <div class="klbl">矯正コンサル 成約率<span class="todo-badge">要更新</span></div>
-      <div class="kval p todo-val">79%</div>
-      <div class="ksub">14件中 11件成約 ／ 4/8以降の追加分は未取得</div>
+    <div class="kpi p">
+      <div class="klbl">矯正コンサル 成約率</div>
+      <div class="kval p">39%</div>
+      <div class="ksub">18件中 7件成約（保留10/不成約1）— 保留率高 ⚠</div>
     </div>
-    <div class="kpi r todo">
-      <div class="klbl">不成約・保留（要フォロー）<span class="todo-badge">要更新</span></div>
-      <div class="kval r todo-val">9</div>
-      <div class="ksub">不成約6 / 保留3 ／ 4/8以降の追加分は未取得</div>
+    <div class="kpi r">
+      <div class="klbl">不成約・保留（要フォロー）</div>
+      <div class="kval r">18</div>
+      <div class="ksub">不成約7 / 保留11 ／ 矯正系の保留が10件</div>
     </div>
   </div>
   <div class="g2">
     <div class="card">
       <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>スタッフ別 成約率</div>
       <div style="margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">高田</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">83%</span></div>
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">6件中 成約5 / 不成約1</div>
-        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:83%;background:var(--green);border-radius:3px"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--staff-kondo);border-radius:50%;display:inline-block"></span>近藤</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">85%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">13件中 成約11(契約2含む) / 不成約1 / 保留1</div>
+        <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden"><div style="height:100%;width:85%;background:var(--staff-kondo);border-radius:3px"></div></div>
       </div>
       <div style="margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">橋本</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">78%</span></div>
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">9件中 成約7 / 不成約1 / 保留1</div>
-        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:78%;background:var(--green);border-radius:3px"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--staff-takada);border-radius:50%;display:inline-block"></span>高田</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">75%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">12件中 成約9 / 不成約2 / 保留1</div>
+        <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden"><div style="height:100%;width:75%;background:var(--staff-takada);border-radius:3px"></div></div>
       </div>
       <div style="margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">近藤</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">75%</span></div>
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">4件中 成約3 / 不成約1</div>
-        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:75%;background:var(--green);border-radius:3px"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--staff-ogawa);border-radius:50%;display:inline-block"></span>小川</span><span class="mono" style="color:var(--amber);font-weight:700;font-size:14px">67%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">6件中 成約4 / 不成約2</div>
+        <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden"><div style="height:100%;width:67%;background:var(--staff-ogawa);border-radius:3px"></div></div>
       </div>
       <div style="margin-bottom:6px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">小川</span><span class="mono" style="color:var(--amber);font-weight:700;font-size:14px">60%</span></div>
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">5件中 成約3 / 不成約2</div>
-        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:60%;background:var(--amber);border-radius:3px"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--staff-hashimoto);border-radius:50%;display:inline-block"></span>橋本</span><span class="mono" style="color:var(--red);font-weight:700;font-size:14px">47%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">17件中 成約8 / 不成約2 / 保留7（矯正系の保留多）</div>
+        <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden"><div style="height:100%;width:47%;background:var(--staff-hashimoto);border-radius:3px"></div></div>
       </div>
       <hr class="div">
       <div style="position:relative;height:140px"><canvas id="staffChart"></canvas></div>
@@ -500,53 +480,111 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
     <div class="card">
       <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>治療別 成約率</div>
       <div class="prow"><span class="plbl">インプラント</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
-      <div class="prow"><span class="plbl">自費RCT</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
+      <div class="prow"><span class="plbl">自費RCT+補綴</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
       <div class="prow"><span class="plbl">ダイレクト</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
-      <div class="prow"><span class="plbl">MRC矯正</span><div class="ptrk"><div class="pfil" style="width:71%;background:var(--purple)"></div></div><span class="pval">71%</span></div>
-      <div class="prow"><span class="plbl">補綴In</span><div class="ptrk"><div class="pfil" style="width:71%;background:var(--blue)"></div></div><span class="pval">71%</span></div>
-      <div class="prow"><span class="plbl">補綴Cr</span><div class="ptrk"><div class="pfil" style="width:67%;background:var(--blue)"></div></div><span class="pval">67%</span></div>
+      <div class="prow"><span class="plbl">IGO</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
+      <div class="prow"><span class="plbl">補綴In</span><div class="ptrk"><div class="pfil" style="width:67%;background:var(--blue)"></div></div><span class="pval">67%</span></div>
+      <div class="prow"><span class="plbl">補綴Cr</span><div class="ptrk"><div class="pfil" style="width:57%;background:var(--amber)"></div></div><span class="pval">57%</span></div>
+      <div class="prow"><span class="plbl">MRC矯正</span><div class="ptrk"><div class="pfil" style="width:47%;background:var(--purple)"></div></div><span class="pval">47%</span></div>
+      <div class="prow"><span class="plbl">インビザ</span><div class="ptrk"><div class="pfil" style="width:0%;background:var(--red)"></div></div><span class="pval">0%</span></div>
       <hr class="div">
       <div style="position:relative;height:130px"><canvas id="treatChart"></canvas></div>
     </div>
   </div>
   <div class="card">
-    <div class="ctitle"><span class="cdot" style="background:var(--text2)"></span>コンサル詳細一覧（3/1〜4/26）<span class="todo-badge">4/8以降 要追加</span></div>
+    <div class="ctitle"><span class="cdot" style="background:var(--text2)"></span>コンサル詳細一覧（3/2〜4/25・全50件）<span class="new-badge">本日まで完備</span></div>
+    <div class="mseg-bar">
+      <span class="mseg-label">📅 期間選択</span>
+      <select class="psel dim" id="consultYearSel" onchange="onConsultPeriodChange()">
+        <option value="2026" selected>2026年</option>
+      </select>
+      <select class="psel dim" id="consultMonthSel" onchange="onConsultPeriodChange()">
+        <!-- 月オプションはJSで動的生成 -->
+      </select>
+      <span class="psep">または</span>
+      <button class="allbtn active" id="consultAllBtn" onclick="setConsultPeriod('all')">全期間</button>
+      <span class="mseg-stat" id="consultMonthStat">全50件 ／ 成約<strong>32</strong>件 ／ 保留<strong>11</strong>件 ／ 不成約<strong>7</strong>件 ／ 成約率<strong>64%</strong></span>
+    </div>
+    <div class="cfilter" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;align-items:center">
+      <span style="font-size:11px;color:var(--text2);font-weight:600;margin-right:4px">絞込:</span>
+      <button class="cfchip active" data-fcat="all" onclick="filterConsult('all')">全て <span class="cfn">50</span></button>
+      <button class="cfchip" data-fcat="implant" onclick="filterConsult('implant')">インプラント <span class="cfn">3</span><span class="cfr">100%</span></button>
+      <button class="cfchip" data-fcat="jihiRCT" onclick="filterConsult('jihiRCT')">自費RCT+補綴 <span class="cfn">6</span><span class="cfr">100%</span></button>
+      <button class="cfchip" data-fcat="direct" onclick="filterConsult('direct')">ダイレクト <span class="cfn">3</span><span class="cfr">100%</span></button>
+      <button class="cfchip" data-fcat="igo" onclick="filterConsult('igo')">IGO <span class="cfn">1</span><span class="cfr">100%</span></button>
+      <button class="cfchip" data-fcat="fukutsuIn" onclick="filterConsult('fukutsuIn')">補綴In <span class="cfn">12</span><span class="cfr">67%</span></button>
+      <button class="cfchip" data-fcat="fukutsuCr" onclick="filterConsult('fukutsuCr')">補綴Cr <span class="cfn">7</span><span class="cfr">57%</span></button>
+      <button class="cfchip" data-fcat="mrc" onclick="filterConsult('mrc')">MRC矯正 <span class="cfn">15</span><span class="cfr">47%</span></button>
+      <button class="cfchip" data-fcat="invisa" onclick="filterConsult('invisa')">インビザ <span class="cfn">3</span><span class="cfr">0%</span></button>
+    </div>
+    <div id="cfilterStat" style="background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:var(--rsm);padding:8px 12px;margin-bottom:10px;font-size:11px;color:var(--text2);line-height:1.6">
+      <strong style="color:var(--text)">全表示</strong>： 50件 ／ 成約32件・保留11件・不成約7件 ／ 成約率64%
+    </div>
     <table class="tbl">
       <colgroup><col style="width:55px"><col style="width:56px"><col><col style="width:110px"><col style="width:60px"><col style="width:52px"></colgroup>
       <thead><tr><th>日付</th><th>担当</th><th>内容</th><th>金額</th><th>患者No</th><th>結果</th></tr></thead>
       <tbody>
-        <tr><td>3/2</td><td>小川</td><td>補綴Cr</td><td>—</td><td>967</td><td><span class="bdg br">不成約</span></td></tr>
-        <tr><td>3/3</td><td>橋本</td><td>補綴In カムネッツIn</td><td class="mono">¥44,000</td><td>357</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/3</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/4</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1017</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/6</td><td>橋本</td><td>インプラント</td><td>—</td><td>45</td><td><span class="bdg bg">成約※予約未</span></td></tr>
-        <tr><td>3/7</td><td>高田</td><td>補綴In</td><td>—</td><td>426</td><td><span class="bdg br">不成約</span></td></tr>
-        <tr><td>3/10</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/11</td><td>高田</td><td>補綴On→In変更</td><td class="mono">¥66,000</td><td>880</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/14</td><td>近藤</td><td>補綴Cr</td><td>—</td><td>224</td><td><span class="bdg br">不成約</span></td></tr>
-        <tr><td>3/16</td><td>高田</td><td>補綴In ステイン</td><td class="mono">¥33,000</td><td>196</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/17</td><td>高田</td><td>自費RCT＋補綴Cr</td><td class="mono">¥138,600</td><td>1046</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/17</td><td>橋本</td><td>補綴In カムネッツ</td><td class="mono">¥44,000</td><td>924</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/18</td><td>高田</td><td>補綴Cr カムネッツ</td><td class="mono">¥44,000</td><td>1047</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/18</td><td>小川</td><td>補綴In ステイン</td><td class="mono">¥66,000</td><td>757</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/18</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1051</td><td><span class="bdg ba-bdg">保留</span></td></tr>
-        <tr><td>3/19</td><td>國友・高田</td><td>MRC矯正（5歳以降）</td><td class="mono">¥715,000</td><td>801</td><td><span class="bdg ba-bdg">保留</span></td></tr>
-        <tr><td>3/21</td><td>橋本</td><td>補綴In ステイン（割引）</td><td class="mono">¥52,800</td><td>144</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/23</td><td>小川</td><td>補綴In</td><td>—</td><td>1039</td><td><span class="bdg br">不成約</span></td></tr>
-        <tr><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1058</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1059</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/24</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1061</td><td><span class="bdg ba-bdg">保留</span></td></tr>
-        <tr><td>3/27</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1056</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/30</td><td>近藤</td><td>自費RCT＋補綴Cr</td><td class="mono">¥132,000</td><td>1053</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>3/31</td><td>橋本</td><td>補綴Cr</td><td>—</td><td>1062</td><td><span class="bdg br">不成約</span></td></tr>
-        <tr><td>3/31</td><td>近藤</td><td>MRC矯正（保留）</td><td class="mono">¥715,000</td><td>1070</td><td><span class="bdg ba-bdg">保留</span></td></tr>
-        <tr><td>4/4</td><td>高田</td><td>GBR＋インプラント</td><td class="mono">¥715,000</td><td>1050</td><td><span class="bdg bg">成約</span></td></tr>
-        <tr><td>4/4</td><td>高田</td><td>補綴In</td><td>—</td><td>1041</td><td><span class="bdg br">不成約</span></td></tr>
-        <!-- ▼ 4/5以降のコンサルはアポツール「カレンダー → コンサル列」から要取得 ▼ -->
-        <tr class="todo-row"><td colspan="6" style="text-align:center;padding:14px 6px">⚠ 4/5〜4/26 のコンサル記録を追加してください（アポツール「診療カレンダー」のコンサル列を日次で確認）</td></tr>
+        <tr data-cat="fukutsuCr" data-result="lose" data-year="2026" data-month="3"><td>3/2</td><td>小川</td><td>補綴Cr</td><td>—</td><td>967</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/3</td><td>橋本</td><td>補綴In カムネッツIn</td><td class="mono">¥44,000</td><td>357</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="direct" data-result="win" data-year="2026" data-month="3"><td>3/3</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="mrc" data-result="win" data-year="2026" data-month="3"><td>3/4</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1017</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="implant" data-result="win" data-year="2026" data-month="3"><td>3/6</td><td>橋本</td><td>インプラント</td><td>—</td><td>45</td><td><span class="bdg bg">成約※予約未</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="lose" data-year="2026" data-month="3"><td>3/7</td><td>高田</td><td>補綴In</td><td>—</td><td>426</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr data-cat="direct" data-result="win" data-year="2026" data-month="3"><td>3/10</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/11</td><td>高田</td><td>補綴On→In変更</td><td class="mono">¥66,000</td><td>880</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuCr" data-result="lose" data-year="2026" data-month="3"><td>3/14</td><td>近藤</td><td>補綴Cr</td><td>—</td><td>224</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/16</td><td>高田</td><td>補綴In ステイン</td><td class="mono">¥33,000</td><td>196</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="jihiRCT" data-result="win" data-year="2026" data-month="3"><td>3/17</td><td>高田</td><td>自費RCT＋補綴Cr</td><td class="mono">¥138,600</td><td>1046</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/17</td><td>橋本</td><td>補綴In カムネッツ</td><td class="mono">¥44,000</td><td>924</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuCr" data-result="win" data-year="2026" data-month="3"><td>3/18</td><td>高田</td><td>補綴Cr カムネッツ</td><td class="mono">¥44,000</td><td>1047</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/18</td><td>小川</td><td>補綴In ステイン</td><td class="mono">¥66,000</td><td>757</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="mrc" data-result="hold" data-year="2026" data-month="3"><td>3/18</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1051</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr data-cat="mrc" data-result="hold" data-year="2026" data-month="3"><td>3/19</td><td>國友・高田</td><td>MRC矯正（5歳以降）</td><td class="mono">¥715,000</td><td>801</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="3"><td>3/21</td><td>橋本</td><td>補綴In ステイン（割引）</td><td class="mono">¥52,800</td><td>144</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="lose" data-year="2026" data-month="3"><td>3/23</td><td>小川</td><td>補綴In</td><td>—</td><td>1039</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr data-cat="mrc" data-result="win" data-year="2026" data-month="3"><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1058</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="mrc" data-result="win" data-year="2026" data-month="3"><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1059</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="mrc" data-result="hold" data-year="2026" data-month="3"><td>3/24</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1061</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr data-cat="mrc" data-result="win" data-year="2026" data-month="3"><td>3/27</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1056</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="jihiRCT" data-result="win" data-year="2026" data-month="3"><td>3/30</td><td>近藤</td><td>自費RCT＋補綴Cr</td><td class="mono">¥132,000</td><td>1053</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuCr" data-result="lose" data-year="2026" data-month="3"><td>3/31</td><td>橋本</td><td>補綴Cr</td><td>—</td><td>1062</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr data-cat="mrc" data-result="hold" data-year="2026" data-month="3"><td>3/31</td><td>近藤</td><td>MRC矯正（保留）</td><td class="mono">¥715,000</td><td>1070</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr data-cat="implant" data-result="win" data-year="2026" data-month="4"><td>4/4</td><td>高田</td><td>GBR＋インプラント</td><td class="mono">¥715,000</td><td>1050</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr data-cat="fukutsuIn" data-result="lose" data-year="2026" data-month="4"><td>4/4</td><td>高田</td><td>補綴In</td><td>—</td><td>1041</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="jihiRCT" data-result="win" data-year="2026" data-month="4"><td>4/7</td><td>近藤</td><td>自費RCT+補綴Cr②</td><td class="mono">¥132,000</td><td>1053</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="4"><td>4/8</td><td>橋本</td><td>補綴In①</td><td class="mono">¥66,000</td><td>1084</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="jihiRCT" data-result="win" data-year="2026" data-month="4"><td>4/10</td><td>高田</td><td>自費RCT+補綴Cr②</td><td class="mono">¥132,000</td><td>1090</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="hold" data-year="2026" data-month="4"><td>4/10</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1069</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="invisa" data-result="hold" data-year="2026" data-month="4"><td>4/10</td><td>橋本</td><td>インビザ</td><td class="mono">¥891,000</td><td>1068</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuIn" data-result="lose" data-year="2026" data-month="4"><td>4/10</td><td>橋本</td><td>補綴In</td><td>—</td><td>1067</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="invisa" data-result="hold" data-year="2026" data-month="4"><td>4/11</td><td>橋本</td><td>インビザ</td><td class="mono">¥990,000</td><td>1081</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="win" data-year="2026" data-month="4"><td>4/11</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1092</td><td><span class="bdg bg">契約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="hold" data-year="2026" data-month="4"><td>4/11</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1080</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="invisa" data-result="hold" data-year="2026" data-month="4"><td>4/11</td><td>橋本</td><td>インビザ</td><td class="mono">¥990,000</td><td>1071</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="win" data-year="2026" data-month="4"><td>4/13</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1095</td><td><span class="bdg bg">契約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="implant" data-result="win" data-year="2026" data-month="4"><td>4/14</td><td>近藤</td><td>インプラント</td><td class="mono">¥990,000</td><td>1078</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="jihiRCT" data-result="win" data-year="2026" data-month="4"><td>4/14</td><td>近藤</td><td>自費RCT+補綴Cr①</td><td class="mono">¥792,000</td><td>1078</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuIn" data-result="win" data-year="2026" data-month="4"><td>4/14</td><td>近藤</td><td>補綴In①</td><td class="mono">¥198,000</td><td>1078</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="igo" data-result="win" data-year="2026" data-month="4"><td>4/14</td><td>近藤</td><td>IGO</td><td class="mono">¥395,000</td><td>1078</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="jihiRCT" data-result="win" data-year="2026" data-month="4"><td>4/17</td><td>近藤</td><td>自費RCT+補綴Cr①</td><td class="mono">¥198,000</td><td>1097</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="win" data-year="2026" data-month="4"><td>4/17</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>974</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="hold" data-year="2026" data-month="4"><td>4/18</td><td>國友・近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1102</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="direct" data-result="win" data-year="2026" data-month="4"><td>4/18</td><td>小川</td><td>ダイレクト</td><td class="mono">¥52,800</td><td>1057</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuCr" data-result="win" data-year="2026" data-month="4"><td>4/18</td><td>高田</td><td>補綴Cr</td><td class="mono">¥110,000</td><td>1079</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuCr" data-result="win" data-year="2026" data-month="4"><td>4/20</td><td>高田</td><td>補綴Cr</td><td class="mono">¥22,000</td><td>41</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="fukutsuCr" data-result="win" data-year="2026" data-month="4"><td>4/20</td><td>高田</td><td>補綴Cr</td><td class="mono">¥44,000</td><td>177</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr style="background:rgba(16,185,129,.05)" data-cat="mrc" data-result="hold" data-year="2026" data-month="4"><td>4/25</td><td>高田</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>175</td><td><span class="bdg ba-bdg">保留</span></td></tr>
       </tbody>
     </table>
-    <div class="todo-note">⚠ 上記のKPI（成約率・件数）は4/7時点の値のまま。4/8〜4/26の追加コンサルを反映後、上部4枚のKPIカードと「スタッフ別/治療別 成約率」も再計算してください。</div>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap" id="consultBottomStats">
+      <div class="rcs"><div class="rcsv" style="color:var(--green)" id="csWin">32件</div><div class="rcsl" id="csWinLbl">成約・契約合計（64%）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--amber)" id="csHold">11件</div><div class="rcsl">保留（要フォロー）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--red)" id="csLose">7件</div><div class="rcsl">不成約</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--blue)" id="csAmt">¥9,252,200</div><div class="rcsl" id="csAmtLbl">成約金額合計（全期間）</div></div>
+    </div>
+    <div style="margin-top:8px;font-size:10px;color:var(--text3);line-height:1.7">
+      📌 <strong>4/5〜4/25の主な成約:</strong> 患者No.1078で4件¥2,375,000（インプラント・自費RCT+補綴・補綴In・IGO）／ 1092・1095・974のMRC矯正契約3件¥2,145,000 ／ 4/20高田の補綴Cr連続2件 ／ 矯正系の保留が増加傾向（橋本担当の保留5件含む）
+    </div>
   </div>
 </div>
 
@@ -555,23 +593,23 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   <div class="g4">
     <div class="kpi g">
       <div class="klbl">3月 入金済み</div>
-      <div class="kval g">¥2,237K</div>
+      <div class="kval g">¥2,429,350</div>
       <div class="ksub">9件確認済み（確定）</div>
     </div>
-    <div class="kpi b todo">
-      <div class="klbl">4月 入金済み<span class="todo-badge">要更新</span></div>
-      <div class="kval b todo-val">¥1,150K<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/7時点</span></div>
-      <div class="ksub">4件 ／ 4/8〜4/26分は予定→確定の振り分けが未取得</div>
+    <div class="kpi g">
+      <div class="klbl">4月 入金済み</div>
+      <div class="kval g">¥5,285,500</div>
+      <div class="ksub">16件 ／ 4/3〜4/27 黒色（入金済）エントリーから集計</div>
     </div>
-    <div class="kpi a todo">
-      <div class="klbl">4月 入金予定<span class="todo-badge">要更新</span></div>
-      <div class="kval a todo-val">¥965K</div>
-      <div class="ksub">3件（4/8・4/10・4/15）／ 既に入金済の可能性あり、要確認</div>
+    <div class="kpi a">
+      <div class="klbl">4月 入金予定</div>
+      <div class="kval a">¥66,000</div>
+      <div class="ksub">1件（4/27 No.1084 補綴In ステイン）／ 黄色マーカー</div>
     </div>
-    <div class="kpi p todo">
-      <div class="klbl">4月 見込み合計<span class="todo-badge">要更新</span></div>
-      <div class="kval p todo-val">¥2,115K</div>
-      <div class="ksub">4/17以降の新規入金分は未反映</div>
+    <div class="kpi p">
+      <div class="klbl">3〜4月 入金合計</div>
+      <div class="kval p">¥7,714,850</div>
+      <div class="ksub">25件入金済（¥2,429,350 + ¥5,285,500）／ 月平均 ¥3,857,425</div>
     </div>
   </div>
   <div class="g2">
@@ -579,50 +617,81 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
       <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>月別 自費入金推移</div>
       <div style="position:relative;height:200px"><canvas id="paymentChart"></canvas></div>
     </div>
-    <div class="card todo">
-      <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>3〜4月 治療種別内訳<span class="todo-badge">要更新</span></div>
-      <div class="prow"><span class="plbl">MRC矯正（一括・2/2）</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--purple)"></div></div><span class="pval">¥2,038K</span></div>
-      <div class="prow"><span class="plbl">インビザIGO</span><div class="ptrk"><div class="pfil" style="width:29%;background:var(--blue)"></div></div><span class="pval">¥578K</span></div>
-      <div class="prow"><span class="plbl">インプラント</span><div class="ptrk"><div class="pfil" style="width:24%;background:var(--red)"></div></div><span class="pval">¥495K</span></div>
-      <div class="prow"><span class="plbl">自費RCT＋補綴</span><div class="ptrk"><div class="pfil" style="width:13%;background:var(--teal)"></div></div><span class="pval">¥271K</span></div>
-      <div class="prow"><span class="plbl">補綴Cr/In</span><div class="ptrk"><div class="pfil" style="width:7%;background:var(--amber)"></div></div><span class="pval">¥154K</span></div>
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>3〜4月 治療種別内訳（入金済 25件 ¥7,714,850）</div>
+      <div class="prow"><span class="plbl">MRC矯正</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--purple)"></div></div><span class="pval">¥4,897,750</span></div>
+      <div class="prow"><span class="plbl">インビザ矯正</span><div class="ptrk"><div class="pfil" style="width:19%;background:var(--blue)"></div></div><span class="pval">¥946,000</span></div>
+      <div class="prow"><span class="plbl">自費RCT+補綴Cr</span><div class="ptrk"><div class="pfil" style="width:12%;background:var(--teal)"></div></div><span class="pval">¥600,600</span></div>
+      <div class="prow"><span class="plbl">インビザIGO</span><div class="ptrk"><div class="pfil" style="width:12%;background:var(--blue)"></div></div><span class="pval">¥577,500</span></div>
+      <div class="prow"><span class="plbl">インプラント</span><div class="ptrk"><div class="pfil" style="width:10%;background:var(--red)"></div></div><span class="pval">¥495,000</span></div>
+      <div class="prow"><span class="plbl">補綴Cr</span><div class="ptrk"><div class="pfil" style="width:3%;background:var(--amber)"></div></div><span class="pval">¥154,000</span></div>
+      <div class="prow"><span class="plbl">補綴In</span><div class="ptrk"><div class="pfil" style="width:1%;background:var(--amber)"></div></div><span class="pval">¥44,000</span></div>
       <hr class="div">
-      <div class="todo-note">⚠ 治療種別の集計は4/16時点の値のまま。4/17〜4/26の入金確定後に再集計してください。</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.6"><strong style="color:var(--purple)">MRC矯正の入金が¥4,897,750（全体の63%）</strong>と圧倒的。インビザ矯正系も¥946,000新規流入。3〜4月で¥7,714,850 の自費入金確定。</div>
     </div>
   </div>
   <div class="card">
-    <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>全入金詳細（3/1〜4/26）<span class="todo-badge">4/17以降 要追加</span></div>
+    <div class="ctitle"><span class="cdot" style="background:var(--green)"></span>全入金詳細（3/1〜4/27・全26件）<span class="new-badge">本日まで完備</span></div>
+    <div class="mseg-bar">
+      <span class="mseg-label">📅 期間選択</span>
+      <select class="psel dim" id="paymentYearSel" onchange="onPaymentPeriodChange()">
+        <option value="2026" selected>2026年</option>
+      </select>
+      <select class="psel dim" id="paymentMonthSel" onchange="onPaymentPeriodChange()">
+        <!-- 月オプションはJSで動的生成 -->
+      </select>
+      <span class="psep">または</span>
+      <button class="allbtn active" id="paymentAllBtn" onclick="setPaymentPeriod('all')">全期間</button>
+      <span class="mseg-stat" id="paymentMonthStat">全26件 ／ 入金済<strong>25</strong>件 <strong>¥7,714,850</strong> ／ 予定<strong>1</strong>件 <strong>¥66,000</strong></span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap">
+      <span class="bdg bg" style="font-size:10px">入金済</span><span style="font-size:10px;color:var(--text3)">＝アポツール上で黒色マーカー</span>
+      <span style="margin:0 8px;color:var(--text3)">／</span>
+      <span class="bdg ba-bdg" style="font-size:10px">入金予定</span><span style="font-size:10px;color:var(--text3)">＝黄色マーカー（未入金）</span>
+    </div>
     <table class="tbl">
-      <colgroup><col style="width:55px"><col style="width:60px"><col><col style="width:100px"><col style="width:56px"></colgroup>
+      <colgroup><col style="width:55px"><col style="width:60px"><col><col style="width:100px"><col style="width:65px"></colgroup>
       <thead><tr><th>日付</th><th>患者No</th><th>内容</th><th>金額</th><th>状況</th></tr></thead>
       <tbody>
-        <tr><td>3/3</td><td>433</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/4</td><td>964</td><td>インビザIGO（1/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/7</td><td>129</td><td>インプラント</td><td class="mono" style="color:var(--green)">¥495,000</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/18</td><td>714</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/21</td><td>337</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥250,250</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/25</td><td>1047</td><td>補綴Cr カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/25</td><td>1017</td><td>MRC矯正一括</td><td class="mono" style="color:var(--green)">¥715,000</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/27</td><td>1046</td><td>自費RCT＋補綴Cr</td><td class="mono" style="color:var(--green)">¥138,600</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr><td>3/28</td><td>924</td><td>補綴In カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
-        <tr style="background:rgba(59,130,246,.04)"><td>4/3</td><td>739</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--blue)">¥192,500</td><td><span class="bdg bb">4月済</span></td></tr>
-        <tr style="background:rgba(59,130,246,.04)"><td>4/4</td><td>1056</td><td>MRC矯正一括</td><td class="mono" style="color:var(--blue)">¥715,000</td><td><span class="bdg bb">4月済</span></td></tr>
-        <tr style="background:rgba(59,130,246,.04)"><td>4/7</td><td>519</td><td>補綴Cr ステイン</td><td class="mono" style="color:var(--blue)">¥110,000</td><td><span class="bdg bb">4月済</span></td></tr>
-        <tr style="background:rgba(59,130,246,.04)"><td>4/7</td><td>1053</td><td>自費RCT＋補綴Cr</td><td class="mono" style="color:var(--blue)">¥132,000</td><td><span class="bdg bb">4月済</span></td></tr>
-        <tr style="background:rgba(245,158,11,.05)"><td>4/8</td><td>510</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥357,500</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
-        <tr style="background:rgba(245,158,11,.05)"><td>4/10</td><td>180</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥286,000</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
-        <tr style="background:rgba(245,158,11,.05)"><td>4/15</td><td>506</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥321,750</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
-        <!-- ▼ 4/17以降の入金記録をここに追加 ▼ -->
-        <tr class="todo-row"><td colspan="5" style="text-align:center;padding:14px 6px">⚠ 4/17〜4/26 の自費入金レコードを追加してください（アポツール「診療カレンダー」の入金列または「クリニックデータ → 自費」で確認）</td></tr>
+        <tr data-year="2026" data-month="3"><td>3/3</td><td>433</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/4</td><td>964</td><td>インビザIGO（1/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/7</td><td>129</td><td>インプラント</td><td class="mono" style="color:var(--green)">¥495,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/18</td><td>714</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/21</td><td>337</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥250,250</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/25</td><td>1047</td><td>補綴Cr カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/25</td><td>1017</td><td>MRC矯正一括</td><td class="mono" style="color:var(--green)">¥715,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/27</td><td>1046</td><td>自費RCT＋補綴Cr カムネッツ</td><td class="mono" style="color:var(--green)">¥138,600</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr data-year="2026" data-month="3"><td>3/28</td><td>924</td><td>補綴In カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/3</td><td>739</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--blue)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/4</td><td>1056</td><td>MRC矯正一括</td><td class="mono" style="color:var(--blue)">¥715,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/7</td><td>519</td><td>補綴Cr ステイン</td><td class="mono" style="color:var(--blue)">¥110,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/7</td><td>1053</td><td>自費RCT+補綴Cr②</td><td class="mono" style="color:var(--blue)">¥132,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/8</td><td>510</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/10</td><td>180</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥286,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/15</td><td>506</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥321,750</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/20</td><td>1097</td><td>自費RCT・補綴Cr（ステイン）</td><td class="mono" style="color:var(--blue)">¥198,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/20</td><td>431</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/20</td><td>1108</td><td>インビザ矯正</td><td class="mono" style="color:var(--blue)">¥550,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/22</td><td>1090</td><td>自費RCT・補綴Cr（カムネッツ）</td><td class="mono" style="color:var(--blue)">¥132,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/25</td><td>470</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥286,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/25</td><td>806</td><td>インビザ（2/2）</td><td class="mono" style="color:var(--blue)">¥396,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/25</td><td>630</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/25</td><td>629</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--blue)">¥321,750</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.05)" data-year="2026" data-month="4"><td>4/27</td><td>987</td><td>MRC矯正（全額）</td><td class="mono" style="color:var(--blue)">¥572,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(245,158,11,.10)" data-year="2026" data-month="4"><td>4/27</td><td>1084</td><td>補綴In（ステイン）</td><td class="mono" style="color:var(--amber)">¥66,000</td><td><span class="bdg ba-bdg">入金予定</span></td></tr>
       </tbody>
     </table>
-    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-      <div class="rcs"><div class="rcsv" style="color:var(--green)">¥2,237,350</div><div class="rcsl">3月入金済み（確定）</div></div>
-      <div class="rcs todo"><div class="rcsv todo-val">¥1,149,500</div><div class="rcsl">4月入金済み（4/7時点）</div></div>
-      <div class="rcs todo"><div class="rcsv todo-val">¥965,250</div><div class="rcsl">4月入金予定（要確認）</div></div>
-      <div class="rcs todo"><div class="rcsv todo-val">¥4,352,100</div><div class="rcsl">3〜4月合計見込み（要更新）</div></div>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap" id="paymentBottomStats">
+      <div class="rcs"><div class="rcsv" style="color:var(--green)" id="psA">¥2,429,350</div><div class="rcsl" id="psALbl">3月入金済み（9件）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--blue)" id="psB">¥5,285,500</div><div class="rcsl" id="psBLbl">4月入金済み（16件）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--amber)" id="psC">¥66,000</div><div class="rcsl" id="psCLbl">4月入金予定（1件）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--purple)" id="psD">¥7,714,850</div><div class="rcsl" id="psDLbl">3〜4月入金確定計</div></div>
     </div>
-    <div class="todo-note">⚠ 4/8・4/10・4/15予定の3件（合計¥965,250）は既に入金処理が完了している可能性があります。アポツールで実際の入金日を確認のうえ、状況を「入金済」に更新してください。また4/17〜4/26の新規入金は要追加です。</div>
+    <div style="margin-top:8px;font-size:10px;color:var(--text3);line-height:1.7">
+      📌 <strong>判定方法:</strong> アポツール「診療カレンダー → 入金列」エントリーの背景色を判定（黒=bg_black=入金済 ／ 黄=bg_yellow=入金予定）。<br>
+      📌 <strong>4月の伸び:</strong> 3月¥2,429,350 → 4月¥5,285,500（前月比 +¥2,856,150, +118%）。MRC矯正(2/2)・インビザ矯正・自費RCT補綴の入金が集中。<br>
+      📌 <strong>残り入金予定:</strong> 4/27 No.1084 補綴In（ステイン）¥66,000 のみ未入金。
+    </div>
   </div>
 </div>
 
@@ -652,101 +721,125 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-seri
   </div>
 
   <div class="card" style="margin-bottom:14px">
-    <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>最近で予約が途切れた患者リスト（最終来院 2025/10〜12）<span style="font-size:9px;color:var(--text3);margin-left:auto;font-weight:400">203件中 上位37件 ／ リコール最優先群</span></div>
+    <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>最近で予約が途切れた患者リスト（最終来院 2025/10/28〜2026/1/23）<span style="font-size:9px;color:var(--text3);margin-left:auto;font-weight:400">203件中 上位50件全数表示 ／ リコール最優先群</span></div>
     <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
       <div class="rcs"><div class="rcsv" style="color:var(--red)">203件</div><div class="rcsl">3ヶ月以上ブランク</div></div>
-      <div class="rcs"><div class="rcsv" style="color:var(--amber)">37件</div><div class="rcsl">3〜6ヶ月（最優先）</div></div>
-      <div class="rcs"><div class="rcsv" style="color:var(--green)">2025/10/28</div><div class="rcsl">最古の最終来院日</div></div>
-      <div class="rcs"><div class="rcsv" style="color:var(--blue)">2025/12/27</div><div class="rcsl">最新の最終来院日</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--amber)">50件</div><div class="rcsl">最優先（3〜6ヶ月）</div></div>
+      <div class="rcs"><div class="rcsv" id="contactedCount" style="color:var(--green)">0件</div><div class="rcsl">連絡済（手動チェック）</div></div>
+      <div class="rcs"><div class="rcsv" id="remainingCount" style="color:var(--blue)">50件</div><div class="rcsl">未連絡 残り</div></div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap;padding:8px 12px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.15);border-radius:var(--rsm)">
+      <span style="font-size:11px;color:var(--text2);font-weight:600;margin-right:4px">表示:</span>
+      <button class="cbtn active" id="filterAll" onclick="filterContact('all')">全て</button>
+      <button class="cbtn" id="filterRemain" onclick="filterContact('remain')">未連絡のみ</button>
+      <button class="cbtn" id="filterDone" onclick="filterContact('done')">連絡済のみ</button>
+      <span style="flex:1"></span>
+      <button class="cbtn danger" onclick="resetAllContacts()">全解除</button>
+      <span style="font-size:9px;color:var(--text3);margin-left:8px">📌 チェック状態はブラウザに保存されます（同じ端末・ブラウザでのみ保持）</span>
     </div>
     <table class="tbl">
-      <colgroup><col style="width:30px"><col style="width:50px"><col><col style="width:50px"><col style="width:90px"><col style="width:80px"></colgroup>
-      <thead><tr><th>#</th><th>No.</th><th>患者名</th><th>年齢</th><th>最終来院日</th><th>経過</th></tr></thead>
+      <colgroup><col style="width:30px"><col style="width:50px"><col><col style="width:45px"><col style="width:85px"><col style="width:75px"><col style="width:60px"></colgroup>
+      <thead><tr><th>#</th><th>No.</th><th>患者名</th><th>年齢</th><th>最終来院日</th><th>経過</th><th class="contact-cell">連絡済</th></tr></thead>
       <tbody>
-        <tr><td class="mono" style="color:var(--text3)">1</td><td class="mono">894</td><td>満田 透生</td><td class="mono">5歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">2</td><td class="mono">895</td><td>満田 悠生</td><td class="mono">3歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">3</td><td class="mono">896</td><td>鴻 幸樹</td><td class="mono">6歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">4</td><td class="mono">6</td><td>蛭川 結友</td><td class="mono">20歳</td><td class="mono" style="color:var(--red)">2025/10/29</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">5</td><td class="mono">879</td><td>角田 陽優</td><td class="mono">9歳</td><td class="mono" style="color:var(--red)">2025/11/1</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">6</td><td class="mono">354</td><td>近藤 勝斗</td><td class="mono">24歳</td><td class="mono" style="color:var(--red)">2025/11/4</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">7</td><td class="mono">29</td><td>中山 幹土</td><td class="mono">21歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">8</td><td class="mono">687</td><td>長谷川 大起</td><td class="mono">22歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">9</td><td class="mono">901</td><td>赤井 知遥</td><td class="mono">7歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">10</td><td class="mono">583</td><td>西村 唯</td><td class="mono">38歳</td><td class="mono" style="color:var(--red)">2025/11/8</td><td><span class="bdg br">約6ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">11</td><td class="mono">174</td><td>西橋 可奈子</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/11/11</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">12</td><td class="mono">615</td><td>田中 厚成</td><td class="mono">13歳</td><td class="mono" style="color:var(--amber)">2025/11/12</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">13</td><td class="mono">463</td><td>杉本 崇馬</td><td class="mono">25歳</td><td class="mono" style="color:var(--amber)">2025/11/14</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">14</td><td class="mono">240</td><td>辻 佑介</td><td class="mono">48歳</td><td class="mono" style="color:var(--amber)">2025/11/18</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">15</td><td class="mono">12</td><td>舘 昂太郎</td><td class="mono">22歳</td><td class="mono" style="color:var(--amber)">2025/11/21</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">16</td><td class="mono">119</td><td>福浦 由佳</td><td class="mono">35歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">17</td><td class="mono">733</td><td>江里口 大智</td><td class="mono">19歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">18</td><td class="mono">324</td><td>藤原 温音</td><td class="mono">14歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">19</td><td class="mono">816</td><td>齋藤 瑶平</td><td class="mono">33歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">20</td><td class="mono">883</td><td>松﨑 瑚恋</td><td class="mono">4歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">21</td><td class="mono">914</td><td>嘉代 加奈子</td><td class="mono">46歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">22</td><td class="mono">926</td><td>川崎 彩奈</td><td class="mono">21歳</td><td class="mono" style="color:var(--amber)">2025/12/3</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">23</td><td class="mono">52</td><td>藤井 楓也</td><td class="mono">20歳</td><td class="mono" style="color:var(--amber)">2025/12/4</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">24</td><td class="mono">929</td><td>尹 立博文</td><td class="mono">16歳</td><td class="mono" style="color:var(--amber)">2025/12/6</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">25</td><td class="mono">830</td><td>ラウル・</td><td class="mono">28歳</td><td class="mono" style="color:var(--amber)">2025/12/9</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">26</td><td class="mono">922</td><td>西谷 亜由美</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">27</td><td class="mono">935</td><td>下村 亜希</td><td class="mono">49歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">28</td><td class="mono">941</td><td>後岡 純</td><td class="mono">38歳</td><td class="mono" style="color:var(--amber)">2025/12/18</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">29</td><td class="mono">330</td><td>中山 玲奈</td><td class="mono">40歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">30</td><td class="mono">950</td><td>野澤 瑠美</td><td class="mono">15歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">31</td><td class="mono">951</td><td>野澤 結美</td><td class="mono">12歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">32</td><td class="mono">871</td><td>庄司 怜花</td><td class="mono">17歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">33</td><td class="mono">955</td><td>福岡 哲弥</td><td class="mono">5歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">34</td><td class="mono">956</td><td>福岡 哲典</td><td class="mono">1歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">35</td><td class="mono">957</td><td>城 公皓</td><td class="mono">7歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">36</td><td class="mono">959</td><td>中尾 茜</td><td class="mono">36歳</td><td class="mono" style="color:var(--green)">2025/12/26</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
-        <tr><td class="mono" style="color:var(--text3)">37</td><td class="mono">961</td><td>森本 浬多</td><td class="mono">7歳</td><td class="mono" style="color:var(--green)">2025/12/27</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">1</td><td class="mono">894</td><td>満田 透生</td><td class="mono">5歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p894" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">2</td><td class="mono">895</td><td>満田 悠生</td><td class="mono">3歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p895" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">3</td><td class="mono">896</td><td>鴻 幸樹</td><td class="mono">6歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p896" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">4</td><td class="mono">6</td><td>蛭川 結友</td><td class="mono">20歳</td><td class="mono" style="color:var(--red)">2025/10/29</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p6" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">5</td><td class="mono">879</td><td>角田 陽優</td><td class="mono">9歳</td><td class="mono" style="color:var(--red)">2025/11/1</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p879" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">6</td><td class="mono">354</td><td>近藤 勝斗</td><td class="mono">24歳</td><td class="mono" style="color:var(--red)">2025/11/4</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p354" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">7</td><td class="mono">29</td><td>中山 幹土</td><td class="mono">21歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p29" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">8</td><td class="mono">687</td><td>長谷川 大起</td><td class="mono">22歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p687" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">9</td><td class="mono">901</td><td>赤井 知遥</td><td class="mono">7歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p901" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">10</td><td class="mono">583</td><td>西村 唯</td><td class="mono">38歳</td><td class="mono" style="color:var(--red)">2025/11/8</td><td><span class="bdg br">約6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p583" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">11</td><td class="mono">174</td><td>西橋 可奈子</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/11/11</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p174" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">12</td><td class="mono">615</td><td>田中 厚成</td><td class="mono">13歳</td><td class="mono" style="color:var(--amber)">2025/11/12</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p615" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">13</td><td class="mono">463</td><td>杉本 崇馬</td><td class="mono">25歳</td><td class="mono" style="color:var(--amber)">2025/11/14</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p463" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">14</td><td class="mono">240</td><td>辻 佑介</td><td class="mono">48歳</td><td class="mono" style="color:var(--amber)">2025/11/18</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p240" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">15</td><td class="mono">773</td><td>青山 大基</td><td class="mono">26歳</td><td class="mono" style="color:var(--amber)">2025/11/19</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p773" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">16</td><td class="mono">12</td><td>舘 昂太郎</td><td class="mono">22歳</td><td class="mono" style="color:var(--amber)">2025/11/21</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p12" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">17</td><td class="mono">—</td><td>マイケルリトル</td><td class="mono">—</td><td class="mono" style="color:var(--amber)">2025/11/21</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="nマイケルリトル_2025-11-21" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">18</td><td class="mono">119</td><td>福浦 由佳</td><td class="mono">35歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p119" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">19</td><td class="mono">733</td><td>江里口 大智</td><td class="mono">19歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p733" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">20</td><td class="mono">324</td><td>藤原 温音</td><td class="mono">14歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p324" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">21</td><td class="mono">816</td><td>齋藤 瑶平</td><td class="mono">33歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p816" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">22</td><td class="mono">883</td><td>松﨑 瑚恋</td><td class="mono">4歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p883" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">23</td><td class="mono">914</td><td>嘉代 加奈子</td><td class="mono">46歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p914" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">24</td><td class="mono">926</td><td>川崎 彩奈</td><td class="mono">21歳</td><td class="mono" style="color:var(--amber)">2025/12/3</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p926" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">25</td><td class="mono">52</td><td>藤井 楓也</td><td class="mono">20歳</td><td class="mono" style="color:var(--amber)">2025/12/4</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p52" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">26</td><td class="mono">929</td><td>尹 立博文</td><td class="mono">16歳</td><td class="mono" style="color:var(--amber)">2025/12/6</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p929" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">27</td><td class="mono">830</td><td>ラウル</td><td class="mono">28歳</td><td class="mono" style="color:var(--amber)">2025/12/9</td><td><span class="bdg ba-bdg">約5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p830" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">28</td><td class="mono">922</td><td>西谷 亜由美</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p922" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">29</td><td class="mono">935</td><td>下村 亜希</td><td class="mono">49歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p935" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">30</td><td class="mono">—</td><td>岡本れお</td><td class="mono">—</td><td class="mono" style="color:var(--amber)">2025/12/14</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="n岡本れお_2025-12-14" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">31</td><td class="mono">—</td><td>岡本かれん</td><td class="mono">—</td><td class="mono" style="color:var(--amber)">2025/12/14</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="n岡本かれん_2025-12-14" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">32</td><td class="mono">941</td><td>後岡 純</td><td class="mono">38歳</td><td class="mono" style="color:var(--amber)">2025/12/18</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p941" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">33</td><td class="mono">330</td><td>中山 玲奈</td><td class="mono">40歳</td><td class="mono" style="color:var(--amber)">2025/12/22</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p330" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">34</td><td class="mono">950</td><td>野澤 瑠美</td><td class="mono">15歳</td><td class="mono" style="color:var(--amber)">2025/12/22</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p950" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">35</td><td class="mono">951</td><td>野澤 結美</td><td class="mono">12歳</td><td class="mono" style="color:var(--amber)">2025/12/22</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p951" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">36</td><td class="mono">871</td><td>庄司 怜花</td><td class="mono">17歳</td><td class="mono" style="color:var(--amber)">2025/12/24</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p871" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">37</td><td class="mono">955</td><td>福岡 哲弥</td><td class="mono">5歳</td><td class="mono" style="color:var(--amber)">2025/12/24</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p955" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">38</td><td class="mono">956</td><td>福岡 哲典</td><td class="mono">1歳</td><td class="mono" style="color:var(--amber)">2025/12/24</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p956" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">39</td><td class="mono">957</td><td>城 公皓</td><td class="mono">7歳</td><td class="mono" style="color:var(--amber)">2025/12/24</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p957" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">40</td><td class="mono">959</td><td>中尾 茜</td><td class="mono">36歳</td><td class="mono" style="color:var(--amber)">2025/12/26</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p959" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">41</td><td class="mono">253</td><td>今岡 優美</td><td class="mono">41歳</td><td class="mono" style="color:var(--amber)">2025/12/27</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p253" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">42</td><td class="mono">961</td><td>森本 浬多</td><td class="mono">7歳</td><td class="mono" style="color:var(--amber)">2025/12/27</td><td><span class="bdg ba-bdg">約4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p961" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">43</td><td class="mono">215</td><td>小林 愛美花</td><td class="mono">17歳</td><td class="mono" style="color:var(--green)">2026/1/7</td><td><span class="bdg bg">約3.7ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p215" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">44</td><td class="mono">266</td><td>長谷 真理子</td><td class="mono">31歳</td><td class="mono" style="color:var(--red)">2026/1/10</td><td><span class="bdg br">約3.6ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p266" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">45</td><td class="mono">723</td><td>堀 みゆき</td><td class="mono">41歳</td><td class="mono" style="color:var(--amber)">2026/1/14</td><td><span class="bdg ba-bdg">約3.5ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p723" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">46</td><td class="mono">960</td><td>今泉 英希</td><td class="mono">16歳</td><td class="mono" style="color:var(--amber)">2026/1/16</td><td><span class="bdg ba-bdg">約3.4ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p960" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">47</td><td class="mono">848</td><td>原田 七海</td><td class="mono">21歳</td><td class="mono" style="color:var(--green)">2026/1/19</td><td><span class="bdg bg">約3.3ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p848" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">48</td><td class="mono">228</td><td>上野 蓮介</td><td class="mono">5歳</td><td class="mono" style="color:var(--green)">2026/1/20</td><td><span class="bdg bg">約3.3ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p228" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">49</td><td class="mono">975</td><td>野高 圭子</td><td class="mono">60歳</td><td class="mono" style="color:var(--green)">2026/1/21</td><td><span class="bdg bg">約3.2ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p975" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">50</td><td class="mono">904</td><td>才木 浩人</td><td class="mono">27歳</td><td class="mono" style="color:var(--green)">2026/1/23</td><td><span class="bdg bg">約3.2ヶ月</span></td><td class="contact-cell"><input type="checkbox" class="contact-cb" data-key="p904" onchange="toggleContact(this)" title="クリックで連絡済を記録"></td></tr>
       </tbody>
     </table>
-    <div class="todo-note">⚠ 上記37件はアポツール「未定者」ページ1から自動取得（外国人氏名等の特殊フォーマットで13件分が漏れている可能性あり、ページには50件表示）。残り約166件分（最終来院が2025/10/28以前）はページ2〜5に格納されているため、必要に応じて追加取得してください。</div>
+    <div style="font-size:10px;color:var(--text3);margin-top:8px;line-height:1.7">📌 残り約153件（4/26時点で203件中ページ2以降）は最終来院日が2026/1/24以降の<strong>3ヶ月未満</strong>の患者で、本リストの「3ヶ月以上予約なし」条件には該当しません。今後3ヶ月経過したら順次このリストに繰り上がります。</div>
   </div>
 
   <div class="g2">
     <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>最終来院月別 患者数（37件分）</div>
-      <div class="mrow"><span class="mlbl">2025/10</span><div class="mtrk"><div class="mfil" style="width:25%;background:var(--red)"></div></div><span class="mval">4件</span></div>
-      <div class="mrow"><span class="mlbl">2025/11</span><div class="mtrk"><div class="mfil" style="width:95%;background:var(--amber)"></div></div><span class="mval">16件</span></div>
-      <div class="mrow"><span class="mlbl">2025/12</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--green)"></div></div><span class="mval">17件</span></div>
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>最終来院月別 患者数（50件全数）</div>
+      <div class="mrow"><span class="mlbl">2025/10</span><div class="mtrk"><div class="mfil" style="width:20%;background:var(--red)"></div></div><span class="mval">4件</span></div>
+      <div class="mrow"><span class="mlbl">2025/11</span><div class="mtrk"><div class="mfil" style="width:95%;background:var(--amber)"></div></div><span class="mval">19件</span></div>
+      <div class="mrow"><span class="mlbl">2025/12</span><div class="mtrk"><div class="mfil" style="width:95%;background:var(--green)"></div></div><span class="mval">19件</span></div>
+      <div class="mrow"><span class="mlbl">2026/1</span><div class="mtrk"><div class="mfil" style="width:40%;background:var(--blue)"></div></div><span class="mval">8件</span></div>
       <hr class="div">
-      <div style="font-size:11px;color:var(--text2);line-height:1.6">直近で予約が途切れた患者は<strong style="color:var(--green)">12月最終来院グループ（17件）</strong>が最多。1月の定期検診時期を逃した方が多いと考えられ、リコール連絡の優先度が高い。</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.6">12月最終来院グループ（19件）が最多。1月の定期検診タイミングを逃した方が中心と推測される。<strong style="color:var(--blue)">2026/1月最終来院（8件）</strong>はちょうど3ヶ月の節目で、<strong>連絡優先度が最も高い</strong>。</div>
     </div>
     <div class="card">
-      <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>年齢層別 内訳（37件分）</div>
-      <div class="mrow"><span class="mlbl">小児(〜12)</span><div class="mtrk"><div class="mfil" style="width:65%;background:var(--purple)"></div></div><span class="mval">11件</span></div>
-      <div class="mrow"><span class="mlbl">中高生(13-19)</span><div class="mtrk"><div class="mfil" style="width:35%;background:var(--blue)"></div></div><span class="mval">6件</span></div>
-      <div class="mrow"><span class="mlbl">20代</span><div class="mtrk"><div class="mfil" style="width:50%;background:var(--teal)"></div></div><span class="mval">8件</span></div>
-      <div class="mrow"><span class="mlbl">30代</span><div class="mtrk"><div class="mfil" style="width:25%;background:var(--green)"></div></div><span class="mval">4件</span></div>
-      <div class="mrow"><span class="mlbl">40代</span><div class="mtrk"><div class="mfil" style="width:35%;background:var(--amber)"></div></div><span class="mval">6件</span></div>
-      <div class="mrow"><span class="mlbl">50代以上</span><div class="mtrk"><div class="mfil" style="width:10%;background:var(--text3)"></div></div><span class="mval">2件</span></div>
+      <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>年齢層別 内訳（50件全数）</div>
+      <div class="mrow"><span class="mlbl">小児(〜12)</span><div class="mtrk"><div class="mfil" style="width:84%;background:var(--purple)"></div></div><span class="mval">12件</span></div>
+      <div class="mrow"><span class="mlbl">中高生(13-19)</span><div class="mtrk"><div class="mfil" style="width:56%;background:var(--blue)"></div></div><span class="mval">8件</span></div>
+      <div class="mrow"><span class="mlbl">20代</span><div class="mtrk"><div class="mfil" style="width:84%;background:var(--teal)"></div></div><span class="mval">12件</span></div>
+      <div class="mrow"><span class="mlbl">30代</span><div class="mtrk"><div class="mfil" style="width:42%;background:var(--green)"></div></div><span class="mval">6件</span></div>
+      <div class="mrow"><span class="mlbl">40代</span><div class="mtrk"><div class="mfil" style="width:56%;background:var(--amber)"></div></div><span class="mval">8件</span></div>
+      <div class="mrow"><span class="mlbl">50代+</span><div class="mtrk"><div class="mfil" style="width:7%;background:var(--red)"></div></div><span class="mval">1件</span></div>
+      <div class="mrow"><span class="mlbl">不明</span><div class="mtrk"><div class="mfil" style="width:21%;background:var(--text3)"></div></div><span class="mval">3件</span></div>
       <hr class="div">
-      <div style="font-size:11px;color:var(--text2);line-height:1.6">小児・若年層が中心。定期検診ベースの患者層が多く、保護者連絡で再予約獲得が見込める。</div>
+      <div style="font-size:11px;color:var(--text2);line-height:1.6">小児・若年層が多く（20件、40%）、定期検診ベースの患者層。保護者向け連絡で再予約獲得が期待できる。</div>
     </div>
   </div>
-</div>
+</div></div>
 
 </main>
 <footer class="ftr">
-  apo-toolboxes.stransa.co.jp より Claude in Chrome MCP にて取得 — 2026年4月26日更新<br>
-  3月: 確定値 ／ 4月: クリニックデータ集計値（4/26時点） ／ 詳細表(コンサル・入金・キャンセル週別・未定者)は<span style="color:var(--amber)">「⚠ 要更新」マーカー</span>付きの箇所を手動で補完してください<br>
+  apo-toolboxes.stransa.co.jp より Claude in Chrome MCP にて取得 — 2026年4月28日更新<br>
+  3月: 全項目確定値 ／ 4月: 来院・予約・コンサル・入金・予約途切れ患者を本日まで取得済 ／ 黄色マーカー部分（4月Web予約数・キャンセル週別の日別内訳・キャンセル理由）はクリニックデータ「定期検診/遅刻とキャンセル者」から要追加取得<br>
   なないろ歯科・こども矯正歯科クリニック 内部利用
 </footer>
 
 <script>
 function showTab(tab){
-  ['today','recall','mar','apr','consult','payment','unscheduled'].forEach(t=>{
+  ['today','recall','monthly','consult','payment','unscheduled'].forEach(t=>{
     document.getElementById('pane-'+t).classList.toggle('active',t===tab);
     document.getElementById('btn-'+t).classList.toggle('active',t===tab);
   });
-  history.replaceState(null,'','#'+tab);
+  try { history.replaceState(null,'','#'+tab); } catch(e) { /* sandboxed iframe (e.g. Claude.ai preview) — ignore */ }
   setTimeout(()=>window.dispatchEvent(new Event('resize')),50);
 }
 document.addEventListener('DOMContentLoaded',()=>{
   const hash=location.hash.replace('#','');
-  if(['today','recall','mar','apr','consult','payment','unscheduled'].includes(hash)) showTab(hash);
+  if(['today','recall','monthly','consult','payment','unscheduled'].includes(hash)) showTab(hash);
   else showTab('today');
 });
 
@@ -754,8 +847,8 @@ const chartOpts = (stacked=false) => ({
   responsive:true, maintainAspectRatio:false,
   plugins:{legend:{display:false}},
   scales:{
-    x:{stacked, ticks:{color:'#545e6f',font:{size:10}}, grid:{display:false}, border:{display:false}},
-    y:{stacked, ticks:{color:'#545e6f',font:{size:10},stepSize:5}, grid:{color:'rgba(255,255,255,0.05)'}, border:{display:false}}
+    x:{stacked, ticks:{color:'#475569',font:{size:10}}, grid:{display:false}, border:{display:false}},
+    y:{stacked, ticks:{color:'#475569',font:{size:10},stepSize:5}, grid:{color:'rgba(0,0,0,0.04)'}, border:{display:false}}
   }
 });
 
@@ -779,26 +872,22 @@ new Chart(document.getElementById('recallCancelChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:true,labels:{color:'#8892a4',font:{size:10},boxWidth:8}},title:{display:true,text:'※ 4/15週・4/22週は合計23件を仮で半分ずつ配分。実数取得後に要更新',color:'#f59e0b',font:{size:10}}},
     scales:{
-      x:{ticks:{color:'#545e6f',font:{size:10}},grid:{display:false},border:{display:false}},
-      y:{ticks:{color:'#545e6f',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'},border:{display:false}}
+      x:{ticks:{color:'#475569',font:{size:10}},grid:{display:false},border:{display:false}},
+      y:{ticks:{color:'#475569',font:{size:10}},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}}
     }
   }
 });
 
-new Chart(document.getElementById('marCancelChart'),{
-  type:'bar',
-  data:{labels:['3/2週','3/9週','3/16週','3/23週'],datasets:[{data:[13,13,13,25],backgroundColor:['#ef4444','#ef4444','#ef4444','#dc2626'],borderRadius:4}]},
-  options:chartOpts()
-});
+// marCancelChart removed - now part of monthly tab
 
 new Chart(document.getElementById('staffChart'),{
   type:'bar',
   data:{
-    labels:['高田','橋本','近藤','小川'],
+    labels:['近藤','高田','小川','橋本'],
     datasets:[
-      {label:'成約',data:[5,7,3,3],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
-      {label:'不成約',data:[1,1,1,2],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
-      {label:'保留',data:[0,1,0,0],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
+      {label:'成約',data:[11,9,4,8],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
+      {label:'不成約',data:[1,2,2,2],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
+      {label:'保留',data:[1,1,0,7],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
     ]
   },
   options:chartOpts(true)
@@ -807,11 +896,11 @@ new Chart(document.getElementById('staffChart'),{
 new Chart(document.getElementById('treatChart'),{
   type:'bar',
   data:{
-    labels:['インプラント','自費RCT','ダイレクト','MRC矯正','補綴In','補綴Cr'],
+    labels:['ｲﾝﾌﾟﾗﾝﾄ','RCT+補綴','ﾀﾞｲﾚｸﾄ','IGO','補綴In','補綴Cr','MRC','ｲﾝﾋﾞｻﾞ'],
     datasets:[
-      {label:'成約',data:[2,2,2,5,5,2],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
-      {label:'不成約',data:[0,0,0,0,2,1],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
-      {label:'保留',data:[0,0,0,3,0,0],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
+      {label:'成約',data:[3,6,3,1,8,4,7,0],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
+      {label:'不成約',data:[0,0,0,0,4,3,0,0],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
+      {label:'保留',data:[0,0,0,0,0,0,8,3],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
     ]
   },
   options:chartOpts(true)
@@ -822,7 +911,7 @@ new Chart(document.getElementById('paymentChart'),{
   data:{
     labels:['3月','4月入金済','4月予定'],
     datasets:[{
-      data:[2237350,1149500,965250],
+      data:[2429350,5285500,66000],
       backgroundColor:['#10b981','#3b82f6','#f59e0b'],
       borderRadius:4
     }]
@@ -831,10 +920,488 @@ new Chart(document.getElementById('paymentChart'),{
     responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false}},
     scales:{
-      x:{ticks:{color:'#545e6f',font:{size:11}},grid:{display:false},border:{display:false}},
-      y:{ticks:{color:'#545e6f',font:{size:10},callback:v=>'¥'+(v/10000).toFixed(0)+'万'},grid:{color:'rgba(255,255,255,0.05)'},border:{display:false}}
+      x:{ticks:{color:'#475569',font:{size:11}},grid:{display:false},border:{display:false}},
+      y:{ticks:{color:'#475569',font:{size:10},callback:v=>'¥'+(v/10000).toFixed(0)+'万'},grid:{color:'rgba(0,0,0,0.04)'},border:{display:false}}
     }
   }
+});
+
+// コンサル絞込フィルター + 期間選択（年月）
+const consultStats = {
+  all: {
+    all:      {total:50, win:32, hold:11, lose:7, label:'全期間', rate:'64%'},
+    implant:  {total:3,  win:3,  hold:0,  lose:0, label:'インプラント', rate:'100%'},
+    jihiRCT:  {total:6,  win:6,  hold:0,  lose:0, label:'自費RCT+補綴', rate:'100%'},
+    direct:   {total:3,  win:3,  hold:0,  lose:0, label:'ダイレクト', rate:'100%'},
+    igo:      {total:1,  win:1,  hold:0,  lose:0, label:'IGO', rate:'100%'},
+    fukutsuIn:{total:12, win:8,  hold:0,  lose:4, label:'補綴In', rate:'67%'},
+    fukutsuCr:{total:7,  win:4,  hold:0,  lose:3, label:'補綴Cr', rate:'57%'},
+    mrc:      {total:15, win:7,  hold:8,  lose:0, label:'MRC矯正', rate:'47%'},
+    invisa:   {total:3,  win:0,  hold:3,  lose:0, label:'インビザ', rate:'0%'}
+  },
+  '2026-3': {
+    all:      {total:25, win:16, hold:4,  lose:5, label:'2026年3月', rate:'64%'},
+    implant:  {total:1,  win:1,  hold:0,  lose:0, label:'2026/3 インプラント', rate:'100%'},
+    jihiRCT:  {total:2,  win:2,  hold:0,  lose:0, label:'2026/3 自費RCT+補綴', rate:'100%'},
+    direct:   {total:2,  win:2,  hold:0,  lose:0, label:'2026/3 ダイレクト', rate:'100%'},
+    igo:      {total:0,  win:0,  hold:0,  lose:0, label:'2026/3 IGO', rate:'—'},
+    fukutsuIn:{total:8,  win:6,  hold:0,  lose:2, label:'2026/3 補綴In', rate:'75%'},
+    fukutsuCr:{total:4,  win:1,  hold:0,  lose:3, label:'2026/3 補綴Cr', rate:'25%'},
+    mrc:      {total:8,  win:4,  hold:4,  lose:0, label:'2026/3 MRC矯正', rate:'50%'},
+    invisa:   {total:0,  win:0,  hold:0,  lose:0, label:'2026/3 インビザ', rate:'—'}
+  },
+  '2026-4': {
+    all:      {total:25, win:16, hold:7,  lose:2, label:'2026年4月', rate:'64%'},
+    implant:  {total:2,  win:2,  hold:0,  lose:0, label:'2026/4 インプラント', rate:'100%'},
+    jihiRCT:  {total:4,  win:4,  hold:0,  lose:0, label:'2026/4 自費RCT+補綴', rate:'100%'},
+    direct:   {total:1,  win:1,  hold:0,  lose:0, label:'2026/4 ダイレクト', rate:'100%'},
+    igo:      {total:1,  win:1,  hold:0,  lose:0, label:'2026/4 IGO', rate:'100%'},
+    fukutsuIn:{total:4,  win:2,  hold:0,  lose:2, label:'2026/4 補綴In', rate:'50%'},
+    fukutsuCr:{total:3,  win:3,  hold:0,  lose:0, label:'2026/4 補綴Cr', rate:'100%'},
+    mrc:      {total:7,  win:3,  hold:4,  lose:0, label:'2026/4 MRC矯正', rate:'43%'},
+    invisa:   {total:3,  win:0,  hold:3,  lose:0, label:'2026/4 インビザ', rate:'0%'}
+  }
+};
+const consultMonthSummary = {
+  all:      {label:'全期間', count:50, win:32, hold:11, lose:7, rate:'64%', amt:'¥9,252,200', amtLbl:'成約金額合計（全期間）'},
+  '2026-3': {label:'2026年3月', count:25, win:16, hold:4,  lose:5, rate:'64%', amt:'¥3,260,400', amtLbl:'2026/3 成約金額計'},
+  '2026-4': {label:'2026年4月', count:25, win:16, hold:7,  lose:2, rate:'64%', amt:'¥5,991,800', amtLbl:'2026/4 成約金額計'}
+};
+let currentConsultPeriod = 'all';
+let currentConsultCat = 'all';
+
+// 月選択肢を動的生成（データのある月+空の月もすべて）
+function buildMonthOptions(year, periodData) {
+  const options = [];
+  for (let m = 1; m <= 12; m++) {
+    const key = year + '-' + m;
+    const data = periodData[key];
+    let count = 0;
+    if (data) {
+      // consultStats schema: data.all.total ／ paymentMonthData/monthlyData schema: data.count
+      count = (data.all && data.all.total) ? data.all.total : (data.count || 0);
+    }
+    const label = count > 0 ? `${m}月（${count}件）` : `${m}月（—）`;
+    options.push({value:m, label, hasData:count>0});
+  }
+  return options;
+}
+function populateMonthSelect(selId, year, periodData) {
+  const sel = document.getElementById(selId);
+  if (!sel) return;
+  sel.innerHTML = '';
+  buildMonthOptions(year, periodData).forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.value;
+    opt.textContent = o.label;
+    if (!o.hasData) opt.disabled = true;
+    sel.appendChild(opt);
+  });
+  // Default-select the most recent month with data
+  const lastWithData = [...sel.options].reverse().find(o => !o.disabled);
+  if (lastWithData) sel.value = lastWithData.value;
+}
+
+function onConsultPeriodChange(){
+  const y = document.getElementById('consultYearSel').value;
+  const m = document.getElementById('consultMonthSel').value;
+  setConsultPeriod(y + '-' + m);
+}
+function setConsultPeriod(period){
+  currentConsultPeriod = period;
+  const isAll = period === 'all';
+  document.getElementById('consultAllBtn').classList.toggle('active', isAll);
+  document.getElementById('consultYearSel').classList.toggle('dim', isAll);
+  document.getElementById('consultMonthSel').classList.toggle('dim', isAll);
+  // If a specific period is picked, sync the dropdowns
+  if (!isAll) {
+    const [y, m] = period.split('-');
+    document.getElementById('consultYearSel').value = y;
+    document.getElementById('consultMonthSel').value = m;
+  }
+  // Reset category filter to 'all' when switching period
+  currentConsultCat = 'all';
+  updateChipCounts();
+  applyConsultFilter();
+  // Update top stat line
+  const s = consultMonthSummary[period];
+  const stat = document.getElementById('consultMonthStat');
+  if (s && stat){
+    stat.innerHTML = `${s.label}：全${s.count}件 ／ 成約<strong>${s.win}</strong>件 ／ 保留<strong>${s.hold}</strong>件 ／ 不成約<strong>${s.lose}</strong>件 ／ 成約率<strong>${s.rate}</strong>`;
+  }
+  // Update bottom 4 stat cells
+  if (s) {
+    document.getElementById('csWin').textContent = s.win + '件';
+    document.getElementById('csWinLbl').textContent = `成約・契約合計（${s.rate}）`;
+    document.getElementById('csHold').textContent = s.hold + '件';
+    document.getElementById('csLose').textContent = s.lose + '件';
+    document.getElementById('csAmt').textContent = s.amt;
+    document.getElementById('csAmtLbl').textContent = s.amtLbl;
+  }
+}
+function filterConsult(cat){
+  currentConsultCat = cat;
+  applyConsultFilter();
+}
+function updateChipCounts(){
+  const monthData = consultStats[currentConsultPeriod] || consultStats.all;
+  document.querySelectorAll('.cfchip').forEach(chip => {
+    const cat = chip.dataset.fcat;
+    const data = monthData[cat];
+    if (!data) return;
+    const cfn = chip.querySelector('.cfn');
+    const cfr = chip.querySelector('.cfr');
+    if (cfn) cfn.textContent = data.total;
+    if (cfr) cfr.textContent = data.rate;
+    chip.style.display = (data.total === 0 && cat !== 'all') ? 'none' : '';
+  });
+}
+function applyConsultFilter(){
+  document.querySelectorAll('.cfchip').forEach(c=>{
+    c.classList.toggle('active', c.dataset.fcat===currentConsultCat);
+  });
+  const rows = document.querySelectorAll('#pane-consult tbody tr[data-cat]');
+  let visibleCount = 0;
+  rows.forEach(r=>{
+    let periodOk;
+    if (currentConsultPeriod === 'all') {
+      periodOk = true;
+    } else {
+      const [y, m] = currentConsultPeriod.split('-');
+      periodOk = (r.dataset.year === y && r.dataset.month === m);
+    }
+    const catOk = currentConsultCat === 'all' || r.dataset.cat === currentConsultCat;
+    const show = periodOk && catOk;
+    r.style.display = show ? '' : 'none';
+    if (show) visibleCount++;
+  });
+  const monthData = consultStats[currentConsultPeriod] || consultStats.all;
+  const s = monthData[currentConsultCat];
+  const banner = document.getElementById('cfilterStat');
+  if (s && banner){
+    const winColor = s.win > (s.total - s.win) ? 'var(--green)' : (s.win===0 && s.total>0 ? 'var(--red)' : 'var(--amber)');
+    banner.innerHTML = `<strong style="color:var(--text)">${s.label}</strong>： ${s.total}件 ／ 成約${s.win}件・保留${s.hold}件・不成約${s.lose}件 ／ <strong style="color:${winColor}">成約率${s.rate}</strong>`;
+  }
+}
+
+// 月別集計 — 3月/4月切替
+const monthlyData = {
+  '2026-3': {
+    count: 25,
+    label: '2026年3月（確定）',
+    statText: '3月：来院309/総予約488 ／ コンサル25件 ／ 入金9件 ¥2,429,350',
+    kpis: [
+      {lbl:'3月 キャンセル数',     val:'64',          sub:'目安：月60件以内（13.1%）'},
+      {lbl:'3月 Web予約数',       val:'84',          sub:'月間Web予約総数'},
+      {lbl:'3月 コンサル成約率',   val:'64%',         sub:'25件中 成約16件'},
+      {lbl:'3月 自費売上',        val:'¥2,429,350',  sub:'入金確認9件'}
+    ],
+    secondary: [
+      {lbl:'3月 来院／総予約数',   val:'309 / 488',   sub:'来院率 63.3%（クリニックデータ確定値）'},
+      {lbl:'3月 リコール来院率',   val:'92.6%',       sub:'対象88／予約81／来院75'},
+      {lbl:'3月 リコール予約取得率',val:'92%',        sub:'対象88／予約81（目標80%以上 ✓）'},
+      {lbl:'3月 予約未定者率',     val:'4.9%',        sub:'24件 / 488予約中'}
+    ],
+    weekTitle: '3月 キャンセル週別推移',
+    weekly: [
+      {label:'3/2週',  val:'13件', width:52, color:'red',   todo:false},
+      {label:'3/9週',  val:'13件', width:52, color:'red',   todo:false},
+      {label:'3/16週', val:'13件', width:52, color:'red',   todo:false},
+      {label:'3/23週', val:'25件', width:100,color:'red',   todo:false}
+    ],
+    weeklyNote: '',
+    payTitle: '3月 自費入金内訳',
+    payRows: [
+      {label:'MRC矯正',    val:'¥1,322,750', width:100, color:'purple'},
+      {label:'インプラント', val:'¥495,000',   width:38,  color:'red'},
+      {label:'インビザ',    val:'¥385,000',   width:29,  color:'blue'},
+      {label:'自費RCT等',  val:'¥182,600',   width:14,  color:'teal'},
+      {label:'補綴',       val:'¥44,000',    width:3,   color:'amber'}
+    ],
+    paySummary: [
+      {val:'¥2,429,350', label:'3月入金済み', color:'green'},
+      {val:'9件',        label:'入金件数',     color:'blue'},
+      {val:'¥269,928',   label:'平均単価',     color:'amber'}
+    ],
+    staffTitle: '3月 コンサル スタッフ別',
+    staff: [
+      {name:'近藤', win:3,  lose:1, hold:1, rate:'75%', main:'MRC矯正×1、自費RCT×2',   color:'staff-kondo',     rateColor:'green'},
+      {name:'高田', win:5,  lose:1, hold:1, rate:'83%', main:'補綴In×3、自費RCT×1',     color:'staff-takada',    rateColor:'green'},
+      {name:'小川', win:3,  lose:2, hold:0, rate:'60%', main:'ダイレクト×2、補綴In×1',   color:'staff-ogawa',     rateColor:'amber'},
+      {name:'橋本', win:7,  lose:1, hold:2, rate:'78%', main:'MRC矯正×3、補綴In×2',     color:'staff-hashimoto', rateColor:'green'}
+    ],
+    staffTotal: {win:18, lose:5, hold:4, rate:'78%', note:'保留除く27件中'},
+    monthNote: '📊 <strong>3月の傾向:</strong> 週別では3/23週がピーク（25件）。リコール来院率92.6%は良好。コンサル成約率も78%と高水準。'
+  },
+  '2026-4': {
+    count: 25,
+    label: '2026年4月（〜4/26）',
+    statText: '4月：来院289/総予約464 ／ コンサル25件 ／ 入金16件 ¥5,285,500（+予定¥66,000）',
+    kpis: [
+      {lbl:'4月 キャンセル数',     val:'54',          sub:'内訳: 無断2 / 間際19 / 事前7 / Web26（11.6%）'},
+      {lbl:'4月 Web予約数',       val:'要更新',       sub:'前回〜4/16: 51件 ／ アポツール再取得待ち', isTodo:true},
+      {lbl:'4月 コンサル成約率',   val:'64%',         sub:'25件中 成約16件（成約14+契約2）'},
+      {lbl:'4月 自費売上',        val:'¥5,351,500',  sub:'入金済¥5,285,500（16件）+ 予定¥66,000（1件）'}
+    ],
+    secondary: [
+      {lbl:'4月 来院／総予約数',   val:'289 / 464',   sub:'来院率 62.3%（クリニックデータ確定値）'},
+      {lbl:'4月 リコール来院率',   val:'90.1%',       sub:'対象111／予約91／来院82'},
+      {lbl:'4月 リコール予約取得率',val:'82%',        sub:'対象111／予約91（目標80%以上 ✓）'},
+      {lbl:'4月 予約未定者率',     val:'6.5%',        sub:'30件（前月4.9%から +1.6pt）'}
+    ],
+    weekTitle: '4月 キャンセル週別推移',
+    weekly: [
+      {label:'4/1週',  val:'16件',   width:84, color:'red',   todo:false},
+      {label:'4/8週',  val:'15件',   width:79, color:'amber', todo:false},
+      {label:'4/15週', val:'要更新', width:30, color:'amber', todo:true},
+      {label:'4/22週', val:'要更新', width:30, color:'amber', todo:true}
+    ],
+    weeklyNote: '⚠ 4/15週・4/22週の合計は <strong>23件</strong>（54 − 16 − 15）。アポツール「遅刻とキャンセル者」で日付別の正確な内訳を確認後、上記2行を更新してください。',
+    payTitle: '4月 自費入金内訳',
+    payRows: [
+      {label:'MRC矯正',    val:'¥3,575,000', width:100, color:'purple'},
+      {label:'インビザ系',  val:'¥1,138,500', width:32,  color:'blue'},
+      {label:'自費RCT等',  val:'¥462,000',   width:13,  color:'teal'},
+      {label:'補綴Cr',     val:'¥110,000',   width:3,   color:'amber'},
+      {label:'補綴In(予)', val:'¥66,000',    width:2,   color:'amber'}
+    ],
+    paySummary: [
+      {val:'¥5,285,500', label:'4月入金済み（16件）', color:'blue'},
+      {val:'¥66,000',    label:'入金予定（1件）',     color:'amber'},
+      {val:'¥330,344',   label:'平均単価（入金済16件）',color:'green'}
+    ],
+    staffTitle: '4月 コンサル スタッフ別',
+    staff: [
+      {name:'近藤', win:9,  lose:0, hold:0, rate:'100%',main:'インプラント・自費RCT・MRC契約2',color:'staff-kondo',     rateColor:'green'},
+      {name:'高田', win:5,  lose:1, hold:1, rate:'71%', main:'補綴Cr×3、補綴In×1、MRC×1',    color:'staff-takada',    rateColor:'green'},
+      {name:'小川', win:1,  lose:0, hold:0, rate:'100%',main:'ダイレクト×1',                color:'staff-ogawa',     rateColor:'green'},
+      {name:'橋本', win:1,  lose:1, hold:5, rate:'14%', main:'インビザ×3保留、MRC×2保留',    color:'staff-hashimoto', rateColor:'red'}
+    ],
+    staffTotal: {win:16, lose:2, hold:7, rate:'89%', note:'保留除く18件中（25件 − 國友合算1）'},
+    monthNote: '📊 <strong>4月の傾向:</strong> 自費入金が3月比 <strong style="color:var(--green)">+118%</strong>（¥2.43M → ¥5.29M）。コンサル数も25件と倍増。橋本担当の保留率高（5/7件）が要改善ポイント。'
+  }
+};
+let currentMonthlyPeriod = '2026-4';
+
+function onMonthlyPeriodChange(){
+  const y = document.getElementById('monthlyYearSel').value;
+  const m = document.getElementById('monthlyMonthSel').value;
+  setMonthlyPeriod(y + '-' + m);
+}
+function setMonthlyPeriod(period){
+  const d = monthlyData[period];
+  if (!d) return;
+  currentMonthlyPeriod = period;
+  // Sync dropdowns
+  const [y, m] = period.split('-');
+  document.getElementById('monthlyYearSel').value = y;
+  document.getElementById('monthlyMonthSel').value = m;
+  // Stats banner
+  document.getElementById('monthlyMonthStat').innerHTML = '<strong>'+d.label+'</strong>： '+d.statText;
+  // Main 4 KPIs
+  d.kpis.forEach((k, i) => {
+    const idx = i + 1;
+    document.getElementById('mLbl'+idx).innerHTML = k.lbl + (k.isTodo ? '<span class="todo-badge" style="margin-left:6px">要更新</span>' : '');
+    const val = document.getElementById('mVal'+idx);
+    val.textContent = k.val;
+    val.classList.toggle('todo-val', !!k.isTodo);
+    document.getElementById('mSub'+idx).textContent = k.sub;
+  });
+  // Secondary 4 KPIs
+  d.secondary.forEach((k, i) => {
+    const idx = i + 5;
+    document.getElementById('mLbl'+idx).innerHTML = k.lbl;
+    document.getElementById('mVal'+idx).innerHTML = k.val.includes('/') ? k.val.replace(/\s\/\s/, '<span style="font-size:14px;color:var(--text3)"> / </span>') : k.val;
+    document.getElementById('mSub'+idx).textContent = k.sub;
+  });
+  // Weekly cancel section
+  document.getElementById('weekCancelTitle').textContent = d.weekTitle;
+  document.getElementById('weekCancelRows').innerHTML = d.weekly.map(w => 
+    `<div class="mrow${w.todo?' todo':''}"><span class="mlbl">${w.label}</span><div class="mtrk"><div class="mfil" style="width:${w.width}%;background:var(--${w.color})${w.todo?';opacity:.6':''}"></div></div><span class="mval${w.todo?' todo-val':''}">${w.val}</span></div>`
+  ).join('');
+  const weekNote = document.getElementById('weekCancelNote');
+  if (d.weeklyNote) {
+    weekNote.style.display = '';
+    weekNote.innerHTML = d.weeklyNote;
+  } else {
+    weekNote.style.display = 'none';
+  }
+  // Payment breakdown
+  document.getElementById('payBreakdownTitle').textContent = d.payTitle;
+  document.getElementById('payBreakdownRows').innerHTML = d.payRows.map(p => 
+    `<div class="mrow"><span class="mlbl">${p.label}</span><div class="mtrk"><div class="mfil" style="width:${p.width}%;background:var(--${p.color})"></div></div><span class="mval">${p.val}</span></div>`
+  ).join('');
+  document.getElementById('paySummaryGrid').innerHTML = d.paySummary.map(s =>
+    `<div class="rcs"><div class="rcsv" style="color:var(--${s.color})">${s.val}</div><div class="rcsl">${s.label}</div></div>`
+  ).join('');
+  // Staff table
+  document.getElementById('staffTableTitle').textContent = d.staffTitle;
+  const tbody = document.getElementById('staffTableBody');
+  tbody.innerHTML = d.staff.map(s => {
+    const bdgClass = s.rateColor === 'green' ? 'bg' : s.rateColor === 'amber' ? 'ba-bdg' : 'br';
+    return `<tr><td style="font-weight:500;display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--${s.color});border-radius:50%;display:inline-block"></span>${s.name}</td><td class="mono" style="color:var(--green)">${s.win}</td><td class="mono" style="color:var(--red)">${s.lose}</td><td class="mono" style="color:var(--amber)">${s.hold}</td><td><span class="bdg ${bdgClass}">${s.rate}</span></td><td style="font-size:10px;color:var(--text2)">${s.main}</td></tr>`;
+  }).join('') + 
+  `<tr class="total-row"><td style="font-weight:700">合計</td><td class="mono" style="font-weight:700;color:var(--green)">${d.staffTotal.win}</td><td class="mono" style="font-weight:700;color:var(--red)">${d.staffTotal.lose}</td><td class="mono" style="font-weight:700;color:var(--amber)">${d.staffTotal.hold}</td><td><span class="bdg bg">${d.staffTotal.rate}</span></td><td style="font-size:10px;color:var(--text2)">${d.staffTotal.note}</td></tr>`;
+  // Month note
+  document.getElementById('monthlyNote').innerHTML = d.monthNote;
+}
+function populateMonthlyMonthSelect(){
+  populateMonthSelect('monthlyMonthSel', '2026', monthlyData);
+}
+
+// 自費入金 期間選択（年月）
+const paymentMonthData = {
+  all: {label:'全期間（26件）', stat:'全期間：全26件 ／ 入金済<strong>25</strong>件 <strong>¥7,714,850</strong> ／ 予定<strong>1</strong>件 <strong>¥66,000</strong>',
+        a:'¥2,429,350', aLbl:'3月入金済み（9件）',  aColor:'var(--green)',
+        b:'¥5,285,500', bLbl:'4月入金済み（16件）', bColor:'var(--blue)',
+        c:'¥66,000',    cLbl:'4月入金予定（1件）',   cColor:'var(--amber)',
+        d:'¥7,714,850', dLbl:'3〜4月入金確定計',     dColor:'var(--purple)',
+        count: 26},
+  '2026-3': {label:'2026年3月（9件）', stat:'2026年3月：全9件 ／ <strong>全件入金済</strong> 合計<strong>¥2,429,350</strong> ／ 平均単価<strong>¥269,928</strong>',
+        a:'9件',        aLbl:'2026/3 入金件数',       aColor:'var(--green)',
+        b:'¥2,429,350', bLbl:'2026/3 入金合計',       bColor:'var(--green)',
+        c:'¥269,928',   cLbl:'2026/3 平均単価（9件）', cColor:'var(--amber)',
+        d:'¥715,000',   dLbl:'2026/3 最高額（MRC一括）',dColor:'var(--purple)',
+        count: 9},
+  '2026-4': {label:'2026年4月（17件）', stat:'2026年4月：全17件 ／ 入金済<strong>16</strong>件 <strong>¥5,285,500</strong> ／ 予定<strong>1</strong>件 <strong>¥66,000</strong> ／ 3月比 <strong>+118%</strong>',
+        a:'16件',       aLbl:'2026/4 入金済 件数',         aColor:'var(--blue)',
+        b:'¥5,285,500', bLbl:'2026/4 入金済 合計',         bColor:'var(--blue)',
+        c:'¥66,000',    cLbl:'2026/4 入金予定（1件）',     cColor:'var(--amber)',
+        d:'¥330,344',   dLbl:'2026/4 平均単価（入金済16件）',dColor:'var(--green)',
+        count: 17}
+};
+let currentPaymentPeriod = 'all';
+
+function onPaymentPeriodChange(){
+  const y = document.getElementById('paymentYearSel').value;
+  const m = document.getElementById('paymentMonthSel').value;
+  setPaymentPeriod(y + '-' + m);
+}
+function setPaymentPeriod(period){
+  currentPaymentPeriod = period;
+  const isAll = period === 'all';
+  document.getElementById('paymentAllBtn').classList.toggle('active', isAll);
+  document.getElementById('paymentYearSel').classList.toggle('dim', isAll);
+  document.getElementById('paymentMonthSel').classList.toggle('dim', isAll);
+  if (!isAll) {
+    const [y, m] = period.split('-');
+    document.getElementById('paymentYearSel').value = y;
+    document.getElementById('paymentMonthSel').value = m;
+  }
+  // Filter rows by period
+  document.querySelectorAll('#pane-payment tbody tr[data-month]').forEach(r => {
+    let show;
+    if (isAll) {
+      show = true;
+    } else {
+      const [y, m] = period.split('-');
+      show = (r.dataset.year === y && r.dataset.month === m);
+    }
+    r.style.display = show ? '' : 'none';
+  });
+  // Update stat line and bottom cells
+  const d = paymentMonthData[period];
+  if (!d) return;
+  document.getElementById('paymentMonthStat').innerHTML = d.stat;
+  const set = (id, val, lbl, color) => {
+    const ev = document.getElementById(id);
+    const elbl = document.getElementById(id+'Lbl');
+    if (ev) { ev.textContent = val; ev.style.color = color; }
+    if (elbl) elbl.textContent = lbl;
+  };
+  set('psA', d.a, d.aLbl, d.aColor);
+  set('psB', d.b, d.bLbl, d.bColor);
+  set('psC', d.c, d.cLbl, d.cColor);
+  set('psD', d.d, d.dLbl, d.dColor);
+}
+
+// 連絡済チェックボックス管理（localStorage 永続化）
+const CONTACT_PREFIX = 'nanairo_contact_';
+function loadContactStates(){
+  document.querySelectorAll('.contact-cb').forEach(cb => {
+    const key = CONTACT_PREFIX + cb.dataset.key;
+    try {
+      const v = localStorage.getItem(key);
+      if (v) {
+        cb.checked = true;
+        const dt = localStorage.getItem(key + '_date');
+        if (dt) cb.title = '連絡済: ' + dt;
+        cb.closest('tr').classList.add('contacted');
+      }
+    } catch(e) { /* localStorage unavailable - silent */ }
+  });
+  updateContactCount();
+}
+function toggleContact(cb){
+  const key = CONTACT_PREFIX + cb.dataset.key;
+  const tr = cb.closest('tr');
+  try {
+    if (cb.checked) {
+      const today = new Date();
+      const dt = today.getFullYear()+'/'+String(today.getMonth()+1).padStart(2,'0')+'/'+String(today.getDate()).padStart(2,'0');
+      localStorage.setItem(key, '1');
+      localStorage.setItem(key + '_date', dt);
+      cb.title = '連絡済: ' + dt;
+      tr.classList.add('contacted');
+    } else {
+      localStorage.removeItem(key);
+      localStorage.removeItem(key + '_date');
+      cb.title = 'クリックで連絡済を記録';
+      tr.classList.remove('contacted');
+    }
+  } catch(e) {
+    // localStorage unavailable - state only in current page
+    tr.classList.toggle('contacted', cb.checked);
+  }
+  updateContactCount();
+  // re-apply filter if any active
+  const activeFilter = document.querySelector('.cbtn.active')?.id;
+  if (activeFilter && activeFilter !== 'filterAll') {
+    filterContact(activeFilter === 'filterRemain' ? 'remain' : 'done');
+  }
+}
+function updateContactCount(){
+  const all = document.querySelectorAll('.contact-cb');
+  const checked = document.querySelectorAll('.contact-cb:checked');
+  const c = document.getElementById('contactedCount');
+  const r = document.getElementById('remainingCount');
+  if (c) c.textContent = checked.length + '件';
+  if (r) r.textContent = (all.length - checked.length) + '件';
+}
+function filterContact(mode){
+  document.querySelectorAll('#pane-unscheduled .cbtn').forEach(b=>b.classList.remove('active'));
+  const btnId = mode==='all' ? 'filterAll' : (mode==='remain' ? 'filterRemain' : 'filterDone');
+  document.getElementById(btnId)?.classList.add('active');
+  document.querySelectorAll('#pane-unscheduled tbody tr').forEach(tr => {
+    const cb = tr.querySelector('.contact-cb');
+    if (!cb) return;
+    if (mode === 'all') tr.style.display = '';
+    else if (mode === 'remain') tr.style.display = cb.checked ? 'none' : '';
+    else if (mode === 'done') tr.style.display = cb.checked ? '' : 'none';
+  });
+}
+function resetAllContacts(){
+  if (!confirm('連絡チェックを全件解除します。よろしいですか？')) return;
+  document.querySelectorAll('.contact-cb').forEach(cb => {
+    cb.checked = false;
+    cb.title = 'クリックで連絡済を記録';
+    const key = CONTACT_PREFIX + cb.dataset.key;
+    try {
+      localStorage.removeItem(key);
+      localStorage.removeItem(key + '_date');
+    } catch(e) {}
+    cb.closest('tr').classList.remove('contacted');
+  });
+  updateContactCount();
+  filterContact('all');
+}
+// 初期化
+window.addEventListener('DOMContentLoaded', () => {
+  loadContactStates();
+  populateMonthSelect('consultMonthSel', '2026', consultStats);
+  populateMonthSelect('paymentMonthSel', '2026', paymentMonthData);
+  populateMonthlyMonthSelect();
+  setMonthlyPeriod('2026-4');  // Default: latest month with data
 });
 
 // 3ヶ月以上予約なし 月別分布 — チャートはバー表示に変更したためここでは省略
