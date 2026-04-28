@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なないろ歯科 統合ダッシュボード</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1117;--bg2:#161b27;--bg3:#1e2535;
+  --border:rgba(255,255,255,0.07);
+  --text:#e8eaf0;--text2:#8892a4;--text3:#545e6f;
+  --blue:#3b82f6;--bdim:rgba(59,130,246,.15);
+  --green:#10b981;--gdim:rgba(16,185,129,.15);
+  --amber:#f59e0b;--adim:rgba(245,158,11,.12);
+  --red:#ef4444;--rdim:rgba(239,68,68,.12);
+  --purple:#8b5cf6;--pdim:rgba(139,92,246,.12);
+  --teal:#14b8a6;
+  --teal:#14b8a6;
+  --r:10px;--rsm:6px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.5;min-height:100vh}
+.hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.hdr-l{display:flex;align-items:center;gap:14px}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.htitle{font-size:15px;font-weight:700;letter-spacing:-.3px}
+.hsub{font-size:11px;color:var(--text2);margin-top:1px}
+.live{display:flex;align-items:center;gap:6px;background:var(--gdim);border:1px solid rgba(16,185,129,.3);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--green);font-weight:500}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.dchip{font-family:'DM Mono',monospace;font-size:11px;color:var(--text2);background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:5px 10px}
+
+.tab-nav{display:flex;gap:4px;padding:0 24px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:57px;z-index:99}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-btn{display:flex;align-items:center;gap:6px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+.tab-btn:hover{color:var(--text2)}
+.tab-btn.active{color:var(--text);border-bottom-color:var(--blue)}
+.tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.fbadge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:2px}
+.bm{background:rgba(59,130,246,.15);color:var(--blue)}
+.ba{background:rgba(16,185,129,.15);color:var(--green)}
+.bc{background:rgba(139,92,246,.15);color:var(--purple)}
+.bp{background:rgba(245,158,11,.15);color:var(--amber)}
+
+.main{padding:20px 24px;max-width:1400px;margin:0 auto}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0}
+.kpi.b::before{background:var(--blue)}.kpi.g::before{background:var(--green)}
+.kpi.r::before{background:var(--red)}.kpi.a::before{background:var(--amber)}
+.kpi.p::before{background:var(--purple)}
+.klbl{font-size:11px;color:var(--text2);margin-bottom:8px;font-weight:500}
+.kval{font-size:30px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:6px;font-family:'DM Mono',monospace}
+.kval.b{color:var(--blue)}.kval.g{color:var(--green)}.kval.r{color:var(--red)}.kval.a{color:var(--amber)}.kval.p{color:var(--purple)}
+.ksub{font-size:10px;color:var(--text3)}
+.ksub .up{color:var(--green)}.ksub .dn{color:var(--red)}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:14px}
+.ctitle{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.cdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+.tbl{width:100%;border-collapse:collapse;table-layout:fixed}
+.tbl th{font-size:10px;font-weight:500;color:var(--text3);padding:0 6px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl td{padding:7px 6px;font-size:11px;color:var(--text);border-bottom:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+
+.bdg{display:inline-block;font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;white-space:nowrap}
+.bg{background:var(--gdim);color:var(--green);border:1px solid rgba(16,185,129,.25)}
+.br{background:var(--rdim);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.ba-bdg{background:var(--adim);color:var(--amber);border:1px solid rgba(245,158,11,.25)}
+.bb{background:var(--bdim);color:var(--blue);border:1px solid rgba(59,130,246,.25)}
+.bp-bdg{background:var(--pdim);color:var(--purple);border:1px solid rgba(139,92,246,.25)}
+.bt{background:rgba(20,184,166,.12);color:var(--teal);border:1px solid rgba(20,184,166,.25)}
+
+.mrow{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.mlbl{font-size:11px;color:var(--text2);width:70px;text-align:right;flex-shrink:0}
+.mtrk{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.mfil{height:100%;border-radius:4px}
+.mval{font-size:11px;font-weight:500;color:var(--text);width:42px;text-align:right;font-family:'DM Mono',monospace}
+
+.prow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.plbl{font-size:11px;color:var(--text2);flex:1}
+.ptrk{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.pfil{height:100%;border-radius:3px}
+.pval{font-size:11px;font-weight:500;color:var(--text);width:40px;text-align:right;font-family:'DM Mono',monospace}
+
+.rcs{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 14px;text-align:center}
+.rcsv{font-size:20px;font-weight:700;font-family:'DM Mono',monospace;line-height:1}
+.rcsl{font-size:10px;color:var(--text3);margin-top:4px}
+
+.total-row{background:rgba(255,255,255,.03);border-top:1px solid var(--border)!important}
+.mono{font-family:'DM Mono',monospace}
+
+.new-badge{font-size:9px;background:rgba(16,185,129,.2);color:var(--green);border:1px solid rgba(16,185,129,.3);padding:1px 6px;border-radius:99px;margin-left:6px}
+.div{border:none;border-top:1px solid var(--border);margin:12px 0}
+.ftr{text-align:center;padding:20px;font-size:10px;color:var(--text3);border-top:1px solid var(--border);margin-top:4px}
+
+/* ===== 要更新（TODO）マーカー — このスタイルを目印に編集してください ===== */
+.todo{border:1px dashed rgba(245,158,11,.45)!important;background:rgba(245,158,11,.05)!important;position:relative}
+.todo-badge{display:inline-block;font-size:9px;font-weight:700;background:rgba(245,158,11,.2);color:var(--amber);border:1px solid rgba(245,158,11,.4);padding:1px 7px;border-radius:99px;margin-left:6px;letter-spacing:.5px}
+.todo-val{color:var(--amber)!important;opacity:.85}
+.todo-row td{background:rgba(245,158,11,.04)!important;color:var(--amber)!important;font-style:italic}
+.todo-note{font-size:10px;color:var(--amber);background:rgba(245,158,11,.08);border:1px dashed rgba(245,158,11,.35);border-radius:var(--rsm);padding:8px 12px;margin-top:8px;line-height:1.6}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-l">
+    <div class="logo">🦷</div>
+    <div>
+      <div class="htitle">なないろ歯科・こども矯正歯科クリニック</div>
+      <div class="hsub">兵庫・芦屋医院 — ダッシュボード</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <div class="live"><span class="ldot"></span>ライブデータ</div>
+    <div class="dchip">2026年4月26日 更新</div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('today')" id="btn-today">
+    <span class="tab-dot" style="background:var(--teal)"></span>今日の予約
+    <span class="fbadge" style="background:rgba(20,184,166,.15);color:var(--teal)">TODAY</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('recall')" id="btn-recall">
+    <span class="tab-dot" style="background:var(--green)"></span>リコール・キャンセル
+    <span class="fbadge" style="background:rgba(16,185,129,.15);color:var(--green)">RECALL</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('mar')" id="btn-mar">
+    <span class="tab-dot" style="background:var(--blue)"></span>3月集計
+    <span class="fbadge bm">MAR</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('apr')" id="btn-apr">
+    <span class="tab-dot" style="background:var(--green)"></span>4月集計（〜4/26）
+    <span class="fbadge ba">APR</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('consult')" id="btn-consult">
+    <span class="tab-dot" style="background:var(--purple)"></span>コンサル成約率
+    <span class="fbadge bc">CONSULT</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('payment')" id="btn-payment">
+    <span class="tab-dot" style="background:var(--amber)"></span>自費入金
+    <span class="fbadge bp">PAYMENT</span>
+  </button>
+  <button class="tab-btn" onclick="showTab('unscheduled')" id="btn-unscheduled">
+    <span class="tab-dot" style="background:var(--red)"></span>3ヶ月以上 予約なし
+    <span class="fbadge" style="background:rgba(239,68,68,.15);color:var(--red)">要フォロー</span>
+  </button>
+</nav>
+
+<main class="main">
+
+<!-- ===== 更新サマリー（4/26時点） ===== -->
+<div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(245,158,11,.08));border:1px solid rgba(245,158,11,.25);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;font-size:12px;line-height:1.7">
+  <div style="font-weight:700;color:var(--text);margin-bottom:6px;font-size:13px">📋 4/26 更新サマリー</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px">
+    <div><span style="color:var(--green);font-weight:700">✓ 4/26 確定値で更新済み</span><br><span style="color:var(--text2);font-size:11px">3月集計（全項目）／ 4月集計（来院・予約・リコール・キャンセル合計と内訳・予約未定者率）／ <strong>3ヶ月以上予約なし患者リスト（203件・上位37件）</strong>／ リコール・キャンセル4月主要KPI</span></div>
+    <div><span style="color:var(--amber);font-weight:700">⚠ 要更新（黄色マーカーで明示）</span><br><span style="color:var(--text2);font-size:11px">4月Web予約数 ／ コンサル4/8〜4/26 ／ 入金4/17〜4/26＋予定3件の確定状況 ／ キャンセル週別(4/15週・4/22週) ／ キャンセル理由 ／ 今日の予約タブ(任意の最新営業日へ)</span></div>
+  </div>
+</div>
+
+<!-- ===== 今日の予約タブ（参考: 3/24データ。次回更新時に最新営業日へ差し替えてください） ===== -->
+<div id="pane-today" class="tab-pane">
+  <div class="todo-note" style="margin-bottom:14px">⚠ <strong>「今日の予約」タブは参考用に3/24のデータを残しています。</strong>最新営業日（例: 4/25土）の一覧に差し替える場合は、アポツール「来院状況」または「診療カレンダー」から取得してください。月次指標（右側2枚）は4月の確定値に更新済みです。</div>
+  <div class="g4">
+    <div class="kpi b todo">
+      <div class="klbl">今日の予約件数<span class="todo-badge">3/24時点</span></div>
+      <div class="kval b todo-val">18</div>
+      <div class="ksub">終了8 / 来院中4 / 未来院6（3/24スナップショット）</div>
+    </div>
+    <div class="kpi a todo">
+      <div class="klbl">今日の初診<span class="todo-badge">3/24時点</span></div>
+      <div class="kval a todo-val">2</div>
+      <div class="ksub">原 璃々杏・前泉 澄怜（3/24スナップショット）</div>
+    </div>
+    <div class="kpi r">
+      <div class="klbl">4月 キャンセル率</div>
+      <div class="kval r">11.6%</div>
+      <div class="ksub">54件 ／ 全予約464件中（目標10%未満・改善傾向）</div>
+    </div>
+    <div class="kpi g">
+      <div class="klbl">4月 リコール取得率</div>
+      <div class="kval g">82%</div>
+      <div class="ksub">対象111／予約91（目標80%以上 ✓）</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>今日の予約一覧（18件）<span style="font-size:9px;color:var(--text3);margin-left:auto;font-weight:400">3/24データ</span></div>
+      <table class="tbl">
+        <colgroup><col style="width:50px"><col style="width:100px"><col style="width:48px"><col style="width:80px"><col style="width:56px"></colgroup>
+        <thead><tr><th>時刻</th><th>患者名</th><th>担当</th><th>種別</th><th>状況</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">09:00</td><td>村上 柚望（2歳）</td><td>小川</td><td><span class="bdg bt">SC・定検</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">09:00</td><td>松藤 悠人（6歳）</td><td>橋本</td><td><span class="bdg bp-bdg">MRC矯正</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">09:15</td><td>松岡 莉来（3歳）</td><td>高田</td><td><span class="bdg br">P重防</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">09:30</td><td>大賀 智博（3歳）</td><td>小川</td><td><span class="bdg bt">SC・定検</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">10:00</td><td>星川 櫂志（6歳）</td><td>小川</td><td><span class="bdg bp-bdg">MRC矯正</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">10:30</td><td>寺地 賢人（31歳）</td><td>小川</td><td><span class="bdg ba-bdg">保set</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">11:00</td><td>奥田 紗羅（6歳）</td><td>橋本</td><td><span class="bdg bp-bdg">MRC矯正</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr><td class="mono">14:00</td><td>大谷 綺佳（19歳）</td><td>高田</td><td><span class="bdg bb">MPimp</span></td><td><span class="bdg bg">終了</span></td></tr>
+          <tr style="background:rgba(245,158,11,.04)"><td class="mono">14:00</td><td>原 璃々杏（5歳）★</td><td>橋本</td><td><span class="bdg ba-bdg">初診</span></td><td><span class="bdg bb">治療中</span></td></tr>
+          <tr style="background:rgba(245,158,11,.04)"><td class="mono">14:00</td><td>前泉 澄怜（0歳）★</td><td>小川</td><td><span class="bdg ba-bdg">初診</span></td><td><span class="bdg bb">治療中</span></td></tr>
+          <tr><td class="mono">14:30</td><td>児玉 愛（9歳）</td><td>小川</td><td><span class="bdg bp-bdg">MRC矯正</span></td><td><span class="bdg bt">来院中</span></td></tr>
+          <tr><td class="mono">15:00</td><td>吉田 太一（26歳）</td><td>高田</td><td><span class="bdg bp-bdg">矯正</span></td><td><span class="bdg bt">来院中</span></td></tr>
+          <tr><td class="mono">16:00</td><td>川島 悠暉（13歳）</td><td>高田</td><td><span class="bdg bp-bdg">矯正</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+          <tr><td class="mono">16:15</td><td>木下 大悟（20歳）</td><td>小川</td><td><span class="bdg bp-bdg">矯正</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+          <tr><td class="mono">16:30</td><td>池田 百花（3歳）</td><td>橋本</td><td><span class="bdg br">C処</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+          <tr><td class="mono">17:00</td><td>妹尾 瑞季（15歳）</td><td>高田</td><td><span class="bdg bp-bdg">矯正</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+          <tr><td class="mono">17:00</td><td>朝倉 俊和（37歳）</td><td>橋本</td><td><span class="bdg ba-bdg">ホワイトニング</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+          <tr><td class="mono">17:15</td><td>北 唯人（7歳）</td><td>小川</td><td><span class="bdg bp-bdg">MRC矯正</span></td><td><span class="bdg" style="background:rgba(255,255,255,.07);color:var(--text2);border:1px solid var(--border)">未来院</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>今日の予約内訳</div>
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="position:relative;width:88px;height:88px;flex-shrink:0"><canvas id="donutChart"></canvas></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span>🟡 初診</span><span class="mono">2件</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span>🟢 定検・RC</span><span class="mono">8件</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span>🟣 矯正</span><span class="mono">5件</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px"><span>⚫ その他</span><span class="mono">3件</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle"><span class="cdot" style="background:var(--teal)"></span>担当者別 今日の予約</div>
+        <div class="mrow"><span class="mlbl">小川</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--teal)"></div></div><span class="mval">7件</span></div>
+        <div class="mrow"><span class="mlbl">橋本</span><div class="mtrk"><div class="mfil" style="width:86%;background:var(--green)"></div></div><span class="mval">6件</span></div>
+        <div class="mrow"><span class="mlbl">高田</span><div class="mtrk"><div class="mfil" style="width:71%;background:var(--blue)"></div></div><span class="mval">5件</span></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>DH稼働率（9:00〜18:00）</div>
+        <div class="mrow"><span class="mlbl">小川</span><div class="mtrk"><div class="mfil" style="width:44%;background:var(--teal)"></div></div><span class="mval" style="color:var(--teal)">44%</span></div>
+        <div class="mrow"><span class="mlbl">橋本</span><div class="mtrk"><div class="mfil" style="width:39%;background:var(--green)"></div></div><span class="mval" style="color:var(--green)">39%</span></div>
+        <div class="mrow"><span class="mlbl">高田</span><div class="mtrk"><div class="mfil" style="width:24%;background:var(--amber)"></div></div><span class="mval" style="color:var(--amber)">24%</span></div>
+        <div style="font-size:9px;color:var(--text3);margin-top:4px">診療時間540分に対する担当予約時間の割合</div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>⚠ ハイリスク患者（50%以上）</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:6px 10px;margin-bottom:4px"><span style="font-size:10px">近藤 知里</span><span class="mono" style="color:var(--red);font-size:11px;font-weight:700">100%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:6px 10px;margin-bottom:4px"><span style="font-size:10px">亀谷 温</span><span class="mono" style="color:var(--amber);font-size:11px;font-weight:700">50%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:6px 10px;margin-bottom:4px"><span style="font-size:10px">根崎 真由佳</span><span class="mono" style="color:var(--amber);font-size:11px;font-weight:700">50%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--bg3);border:1px solid var(--border);border-radius:var(--rsm);padding:6px 10px"><span style="font-size:10px">青木 勇澄</span><span class="mono" style="color:var(--amber);font-size:11px;font-weight:700">50%</span></div>
+        <div style="font-size:9px;color:var(--text3);margin-top:6px">全269名中 キャンセル率50%以上の患者</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== リコール・キャンセルタブ ===== -->
+<div id="pane-recall" class="tab-pane">
+  <div class="g4">
+    <div class="kpi t"><div class="klbl">4月 リコール対象数</div><div class="kval t">111</div><div class="ksub">来院済82 ＋ 予約済9（残り）</div></div>
+    <div class="kpi g"><div class="klbl">4月 リコール予約取得率</div><div class="kval g">82%</div><div class="ksub">対象111／予約91（目標80%以上 ✓）</div></div>
+    <div class="kpi r"><div class="klbl">4月 キャンセル数</div><div class="kval r">54</div><div class="ksub">全予約464件中の11.6%（目標10%未満）</div></div>
+    <div class="kpi a"><div class="klbl">4月 無断キャンセル</div><div class="kval a">2</div><div class="ksub">間際19 / 事前7 / Web26 / その他0</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--teal)"></span>4月 リコール（111件）内訳</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+        <div class="rcs"><div class="rcsv" style="color:var(--green)">82</div><div class="rcsl">来院済</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--blue)">9</div><div class="rcsl">予約済</div></div>
+        <div class="rcs todo"><div class="rcsv todo-val">—</div><div class="rcsl">キャンセル<span class="todo-badge">要更新</span></div></div>
+        <div class="rcs todo"><div class="rcsv todo-val">—</div><div class="rcsl">未通知<span class="todo-badge">要更新</span></div></div>
+      </div>
+      <div class="mrow"><span class="mlbl">来院済</span><div class="mtrk"><div class="mfil" style="width:90%;background:var(--green)"></div></div><span class="mval">82件</span></div>
+      <div class="mrow"><span class="mlbl">予約済</span><div class="mtrk"><div class="mfil" style="width:10%;background:var(--blue)"></div></div><span class="mval">9件</span></div>
+      <div class="mrow todo"><span class="mlbl">キャンセル</span><div class="mtrk"><div class="mfil" style="width:20%;background:var(--red);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">未通知</span><div class="mtrk"><div class="mfil" style="width:10%;background:var(--text3);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="todo-note">⚠ リコール予約のキャンセル数・未通知数の内訳はクリニックデータの「定期検診」タブから別途取得が必要。前回3月実績では キャンセル15件・未通知4件 でした。</div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>4月 キャンセル（54件・11.6%）</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px">
+        <div class="rcs"><div class="rcsv" style="color:var(--red)">2</div><div class="rcsl">無断</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--amber)">19</div><div class="rcsl">間際</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--blue)">7</div><div class="rcsl">事前</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--green)">26</div><div class="rcsl">Web</div></div>
+      </div>
+      <div class="ctitle" style="margin-bottom:8px"><span class="cdot" style="background:var(--amber)"></span>キャンセル理由<span class="todo-badge">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">体調不良</span><div class="mtrk"><div class="mfil" style="width:60%;background:var(--amber);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">用事</span><div class="mtrk"><div class="mfil" style="width:30%;background:var(--amber);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">忘れ</span><div class="mtrk"><div class="mfil" style="width:15%;background:var(--red);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">その他</span><div class="mtrk"><div class="mfil" style="width:15%;background:var(--text3);opacity:.5"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="todo-note">⚠ キャンセル理由の内訳は「遅刻とキャンセル者」の各レコードから集計が必要。前回3月実績は 体調不良38 / 用事14 / 忘れ5 / その他5 件でした。</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>4月 キャンセル週別推移<span class="todo-badge">要更新</span></div>
+    <div class="todo-note">⚠ 週別推移グラフ（recallCancelChart）は「4月集計」タブの週別データと連動するため、そちらを更新後に整合させてください。<br>確定値: 4/1週=16件、4/8週=15件、4/15週+4/22週=合計23件（個別内訳は要取得）。</div>
+    <div style="position:relative;height:180px;opacity:.5"><canvas id="recallCancelChart"></canvas></div>
+  </div>
+</div>
+
+<!-- ===== 3月タブ ===== -->
+<div id="pane-mar" class="tab-pane active">
+  <div class="g4">
+    <div class="kpi r">
+      <div class="klbl">3月 キャンセル数</div>
+      <div class="kval r">64</div>
+      <div class="ksub">目安：月60件以内</div>
+    </div>
+    <div class="kpi b">
+      <div class="klbl">3月 Web予約数</div>
+      <div class="kval b">84</div>
+      <div class="ksub">月間Web予約総数</div>
+    </div>
+    <div class="kpi p">
+      <div class="klbl">3月 コンサル成約率</div>
+      <div class="kval p">78%</div>
+      <div class="ksub">27件中 成約21件（保留除く）</div>
+    </div>
+    <div class="kpi g">
+      <div class="klbl">3月 自費売上</div>
+      <div class="kval g">¥2,237K</div>
+      <div class="ksub">入金確認9件</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>3月 キャンセル週別推移</div>
+      <div class="mrow"><span class="mlbl">3/2週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
+      <div class="mrow"><span class="mlbl">3/9週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
+      <div class="mrow"><span class="mlbl">3/16週</span><div class="mtrk"><div class="mfil" style="width:52%;background:var(--red)"></div></div><span class="mval">13件</span></div>
+      <div class="mrow"><span class="mlbl">3/23週</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--red)"></div></div><span class="mval">25件</span></div>
+      <hr class="div">
+      <div style="position:relative;height:160px"><canvas id="marCancelChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>3月 自費入金内訳</div>
+      <div class="mrow"><span class="mlbl">MRC矯正</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--purple)"></div></div><span class="mval">¥1,323K</span></div>
+      <div class="mrow"><span class="mlbl">インビザ</span><div class="mtrk"><div class="mfil" style="width:29%;background:var(--blue)"></div></div><span class="mval">¥385K</span></div>
+      <div class="mrow"><span class="mlbl">インプラント</span><div class="mtrk"><div class="mfil" style="width:37%;background:var(--red)"></div></div><span class="mval">¥495K</span></div>
+      <div class="mrow"><span class="mlbl">自費RCT等</span><div class="mtrk"><div class="mfil" style="width:14%;background:var(--teal)"></div></div><span class="mval">¥183K</span></div>
+      <div class="mrow"><span class="mlbl">補綴</span><div class="mtrk"><div class="mfil" style="width:3%;background:var(--amber)"></div></div><span class="mval">¥44K</span></div>
+      <hr class="div">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div class="rcs"><div class="rcsv" style="color:var(--green)">¥2,237K</div><div class="rcsl">3月入金済み</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--blue)">9件</div><div class="rcsl">入金件数</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--amber)">¥249K</div><div class="rcsl">平均単価</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>3月 コンサル スタッフ別</div>
+    <table class="tbl">
+      <colgroup><col style="width:80px"><col style="width:60px"><col style="width:60px"><col style="width:60px"><col style="width:80px"><col></colgroup>
+      <thead><tr><th>スタッフ</th><th>成約</th><th>不成約</th><th>保留</th><th>成約率</th><th>主な治療</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:500;color:var(--green)">橋本</td><td class="mono" style="color:var(--green)">7</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">2</td><td><span class="bdg bg">78%</span></td><td style="font-size:10px;color:var(--text2)">MRC矯正×3、補綴In×2</td></tr>
+        <tr><td style="font-weight:500;color:var(--blue)">高田</td><td class="mono" style="color:var(--green)">5</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">1</td><td><span class="bdg bg">83%</span></td><td style="font-size:10px;color:var(--text2)">補綴In×3、自費RCT×1</td></tr>
+        <tr><td style="font-weight:500;color:var(--teal)">小川</td><td class="mono" style="color:var(--green)">3</td><td class="mono" style="color:var(--red)">2</td><td class="mono" style="color:var(--amber)">0</td><td><span class="bdg ba-bdg">60%</span></td><td style="font-size:10px;color:var(--text2)">ダイレクト×2、補綴In×1</td></tr>
+        <tr><td style="font-weight:500;color:var(--purple)">近藤</td><td class="mono" style="color:var(--green)">3</td><td class="mono" style="color:var(--red)">1</td><td class="mono" style="color:var(--amber)">1</td><td><span class="bdg bg">75%</span></td><td style="font-size:10px;color:var(--text2)">MRC矯正×1、自費RCT×2</td></tr>
+        <tr class="total-row"><td style="font-weight:700">合計</td><td class="mono" style="font-weight:700;color:var(--green)">18</td><td class="mono" style="font-weight:700;color:var(--red)">5</td><td class="mono" style="font-weight:700;color:var(--amber)">4</td><td><span class="bdg bg">78%</span></td><td style="font-size:10px;color:var(--text2)">保留除く27件中</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 4月タブ ===== -->
+<div id="pane-apr" class="tab-pane">
+  <div class="g4">
+    <div class="kpi r">
+      <div class="klbl">4月 キャンセル数（〜4/26）</div>
+      <div class="kval r">54</div>
+      <div class="ksub">内訳: 無断2 / 間際19 / 事前7 / Web26 / その他0（11.6%）</div>
+    </div>
+    <div class="kpi b todo">
+      <div class="klbl">4月 Web予約数（〜4/26）<span class="todo-badge">要更新</span></div>
+      <div class="kval b todo-val">—</div>
+      <div class="ksub">前回〜4/16: 51件 ／ アポツール再取得待ち</div>
+    </div>
+    <div class="kpi p todo">
+      <div class="klbl">4月 コンサル成約率<span class="todo-badge">要更新</span></div>
+      <div class="kval p todo-val">60%<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/7時点</span></div>
+      <div class="ksub">前回〜4/7: 5件中3件成約 ／ 4/8以降の追加分は未取得</div>
+    </div>
+    <div class="kpi g todo">
+      <div class="klbl">4月 自費入金見込み<span class="todo-badge">要更新</span></div>
+      <div class="kval g todo-val">¥2,115K<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/16時点</span></div>
+      <div class="ksub">確認済¥1,150K＋予定¥965K ／ 4/17以降は未取得</div>
+    </div>
+  </div>
+  <div class="g4">
+    <div class="kpi b">
+      <div class="klbl">4月 来院／総予約数</div>
+      <div class="kval b">289<span style="font-size:14px;color:var(--text3)"> / 464</span></div>
+      <div class="ksub">来院率 62.3%（クリニックデータ確定値）</div>
+    </div>
+    <div class="kpi g">
+      <div class="klbl">4月 リコール来院率</div>
+      <div class="kval g">90.1%</div>
+      <div class="ksub">対象111／予約91／来院82</div>
+    </div>
+    <div class="kpi a">
+      <div class="klbl">4月 リコール予約取得率</div>
+      <div class="kval a">82%</div>
+      <div class="ksub">対象111／予約91（目標80%以上 ✓）</div>
+    </div>
+    <div class="kpi r">
+      <div class="klbl">4月 予約未定者率</div>
+      <div class="kval r">6.5%</div>
+      <div class="ksub">30件（前月4.9%から +1.6pt）</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>4月 キャンセル週別<span class="todo-badge">一部要更新</span></div>
+      <div class="mrow"><span class="mlbl">4/1週</span><div class="mtrk"><div class="mfil" style="width:84%;background:var(--red)"></div></div><span class="mval">16件</span></div>
+      <div class="mrow"><span class="mlbl">4/8週</span><div class="mtrk"><div class="mfil" style="width:79%;background:var(--amber)"></div></div><span class="mval">15件</span></div>
+      <div class="mrow todo"><span class="mlbl">4/15週</span><div class="mtrk"><div class="mfil" style="width:30%;background:var(--amber);opacity:.6"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="mrow todo"><span class="mlbl">4/22週</span><div class="mtrk"><div class="mfil" style="width:30%;background:var(--amber);opacity:.6"></div></div><span class="mval todo-val">要更新</span></div>
+      <div class="todo-note">⚠ 4/15週・4/22週の合計は <strong>23件</strong>（54 − 16 − 15）。<br>アポツール「遅刻とキャンセル者」で日付別の正確な内訳を確認して、上記2行のmval（◯件）と.mfil width(%) を更新してください。</div>
+      <hr class="div">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:8px">日別キャンセル（多い日）<span class="todo-badge">一部要更新</span></div>
+      <div class="mrow"><span class="mlbl">4/4（土）</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--red)"></div></div><span class="mval">7件</span></div>
+      <div class="mrow"><span class="mlbl">4/1（水）</span><div class="mtrk"><div class="mfil" style="width:57%;background:var(--amber)"></div></div><span class="mval">4件</span></div>
+      <div class="mrow"><span class="mlbl">4/7（火）</span><div class="mtrk"><div class="mfil" style="width:43%;background:var(--amber)"></div></div><span class="mval">3件</span></div>
+      <div class="mrow"><span class="mlbl">4/8（水）</span><div class="mtrk"><div class="mfil" style="width:43%;background:var(--amber)"></div></div><span class="mval">3件</span></div>
+      <div class="todo-note">⚠ 4/17以降の日別ピークは未取得。アポツールで4/17〜4/26の間に同水準（3件以上）の日があれば追記してください。</div>
+    </div>
+    <div class="card todo">
+      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>4月 自費入金（確認済＋予定）<span class="todo-badge">要更新</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+        <div class="rcs"><div class="rcsv" style="color:var(--blue)">¥1,150K</div><div class="rcsl">入金済み（〜4/7）</div></div>
+        <div class="rcs"><div class="rcsv" style="color:var(--amber)">¥965K</div><div class="rcsl">入金予定（4/8〜）</div></div>
+      </div>
+      <div class="mrow"><span class="mlbl">MRC矯正</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--purple)"></div></div><span class="mval">¥715K</span></div>
+      <div class="mrow"><span class="mlbl">インビザ</span><div class="mtrk"><div class="mfil" style="width:27%;background:var(--blue)"></div></div><span class="mval">¥193K</span></div>
+      <div class="mrow"><span class="mlbl">自費RCT等</span><div class="mtrk"><div class="mfil" style="width:18%;background:var(--teal)"></div></div><span class="mval">¥132K</span></div>
+      <div class="mrow"><span class="mlbl">補綴</span><div class="mtrk"><div class="mfil" style="width:15%;background:var(--amber)"></div></div><span class="mval">¥110K</span></div>
+      <hr class="div">
+      <div class="todo-note">⚠ 上記は前回4/16時点の集計のまま。4/17〜4/26の入金確定額・予定変動は「自費入金」タブの詳細表を更新してから、このサマリも反映してください。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== コンサルタブ ===== -->
+<div id="pane-consult" class="tab-pane">
+  <div class="g4">
+    <div class="kpi g todo">
+      <div class="klbl">総合成約率（3/1〜4/7）<span class="todo-badge">要更新</span></div>
+      <div class="kval g todo-val">72%</div>
+      <div class="ksub">32件中 成約23件 ／ 4/8以降の追加分は未取得</div>
+    </div>
+    <div class="kpi b todo">
+      <div class="klbl">自費補綴 成約率<span class="todo-badge">要更新</span></div>
+      <div class="kval b todo-val">67%</div>
+      <div class="ksub">18件中 12件成約 ／ 4/8以降の追加分は未取得</div>
+    </div>
+    <div class="kpi p todo">
+      <div class="klbl">矯正コンサル 成約率<span class="todo-badge">要更新</span></div>
+      <div class="kval p todo-val">79%</div>
+      <div class="ksub">14件中 11件成約 ／ 4/8以降の追加分は未取得</div>
+    </div>
+    <div class="kpi r todo">
+      <div class="klbl">不成約・保留（要フォロー）<span class="todo-badge">要更新</span></div>
+      <div class="kval r todo-val">9</div>
+      <div class="ksub">不成約6 / 保留3 ／ 4/8以降の追加分は未取得</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>スタッフ別 成約率</div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">高田</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">83%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">6件中 成約5 / 不成約1</div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:83%;background:var(--green);border-radius:3px"></div></div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">橋本</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">78%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">9件中 成約7 / 不成約1 / 保留1</div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:78%;background:var(--green);border-radius:3px"></div></div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">近藤</span><span class="mono" style="color:var(--green);font-weight:700;font-size:14px">75%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">4件中 成約3 / 不成約1</div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:75%;background:var(--green);border-radius:3px"></div></div>
+      </div>
+      <div style="margin-bottom:6px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px"><span style="font-size:12px;font-weight:500">小川</span><span class="mono" style="color:var(--amber);font-weight:700;font-size:14px">60%</span></div>
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">5件中 成約3 / 不成約2</div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="height:100%;width:60%;background:var(--amber);border-radius:3px"></div></div>
+      </div>
+      <hr class="div">
+      <div style="position:relative;height:140px"><canvas id="staffChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>治療別 成約率</div>
+      <div class="prow"><span class="plbl">インプラント</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
+      <div class="prow"><span class="plbl">自費RCT</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
+      <div class="prow"><span class="plbl">ダイレクト</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--green)"></div></div><span class="pval">100%</span></div>
+      <div class="prow"><span class="plbl">MRC矯正</span><div class="ptrk"><div class="pfil" style="width:71%;background:var(--purple)"></div></div><span class="pval">71%</span></div>
+      <div class="prow"><span class="plbl">補綴In</span><div class="ptrk"><div class="pfil" style="width:71%;background:var(--blue)"></div></div><span class="pval">71%</span></div>
+      <div class="prow"><span class="plbl">補綴Cr</span><div class="ptrk"><div class="pfil" style="width:67%;background:var(--blue)"></div></div><span class="pval">67%</span></div>
+      <hr class="div">
+      <div style="position:relative;height:130px"><canvas id="treatChart"></canvas></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><span class="cdot" style="background:var(--text2)"></span>コンサル詳細一覧（3/1〜4/26）<span class="todo-badge">4/8以降 要追加</span></div>
+    <table class="tbl">
+      <colgroup><col style="width:55px"><col style="width:56px"><col><col style="width:110px"><col style="width:60px"><col style="width:52px"></colgroup>
+      <thead><tr><th>日付</th><th>担当</th><th>内容</th><th>金額</th><th>患者No</th><th>結果</th></tr></thead>
+      <tbody>
+        <tr><td>3/2</td><td>小川</td><td>補綴Cr</td><td>—</td><td>967</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr><td>3/3</td><td>橋本</td><td>補綴In カムネッツIn</td><td class="mono">¥44,000</td><td>357</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/3</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/4</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1017</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/6</td><td>橋本</td><td>インプラント</td><td>—</td><td>45</td><td><span class="bdg bg">成約※予約未</span></td></tr>
+        <tr><td>3/7</td><td>高田</td><td>補綴In</td><td>—</td><td>426</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr><td>3/10</td><td>小川</td><td>充填物 ダイレクト</td><td class="mono">¥33,000</td><td>1019</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/11</td><td>高田</td><td>補綴On→In変更</td><td class="mono">¥66,000</td><td>880</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/14</td><td>近藤</td><td>補綴Cr</td><td>—</td><td>224</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr><td>3/16</td><td>高田</td><td>補綴In ステイン</td><td class="mono">¥33,000</td><td>196</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/17</td><td>高田</td><td>自費RCT＋補綴Cr</td><td class="mono">¥138,600</td><td>1046</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/17</td><td>橋本</td><td>補綴In カムネッツ</td><td class="mono">¥44,000</td><td>924</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/18</td><td>高田</td><td>補綴Cr カムネッツ</td><td class="mono">¥44,000</td><td>1047</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/18</td><td>小川</td><td>補綴In ステイン</td><td class="mono">¥66,000</td><td>757</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/18</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1051</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr><td>3/19</td><td>國友・高田</td><td>MRC矯正（5歳以降）</td><td class="mono">¥715,000</td><td>801</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr><td>3/21</td><td>橋本</td><td>補綴In ステイン（割引）</td><td class="mono">¥52,800</td><td>144</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/23</td><td>小川</td><td>補綴In</td><td>—</td><td>1039</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1058</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/23</td><td>橋本</td><td>MRC矯正（姉妹割）</td><td class="mono">¥572,000</td><td>1059</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/24</td><td>橋本</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1061</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr><td>3/27</td><td>近藤</td><td>MRC矯正</td><td class="mono">¥715,000</td><td>1056</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/30</td><td>近藤</td><td>自費RCT＋補綴Cr</td><td class="mono">¥132,000</td><td>1053</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>3/31</td><td>橋本</td><td>補綴Cr</td><td>—</td><td>1062</td><td><span class="bdg br">不成約</span></td></tr>
+        <tr><td>3/31</td><td>近藤</td><td>MRC矯正（保留）</td><td class="mono">¥715,000</td><td>1070</td><td><span class="bdg ba-bdg">保留</span></td></tr>
+        <tr><td>4/4</td><td>高田</td><td>GBR＋インプラント</td><td class="mono">¥715,000</td><td>1050</td><td><span class="bdg bg">成約</span></td></tr>
+        <tr><td>4/4</td><td>高田</td><td>補綴In</td><td>—</td><td>1041</td><td><span class="bdg br">不成約</span></td></tr>
+        <!-- ▼ 4/5以降のコンサルはアポツール「カレンダー → コンサル列」から要取得 ▼ -->
+        <tr class="todo-row"><td colspan="6" style="text-align:center;padding:14px 6px">⚠ 4/5〜4/26 のコンサル記録を追加してください（アポツール「診療カレンダー」のコンサル列を日次で確認）</td></tr>
+      </tbody>
+    </table>
+    <div class="todo-note">⚠ 上記のKPI（成約率・件数）は4/7時点の値のまま。4/8〜4/26の追加コンサルを反映後、上部4枚のKPIカードと「スタッフ別/治療別 成約率」も再計算してください。</div>
+  </div>
+</div>
+
+<!-- ===== 入金タブ ===== -->
+<div id="pane-payment" class="tab-pane">
+  <div class="g4">
+    <div class="kpi g">
+      <div class="klbl">3月 入金済み</div>
+      <div class="kval g">¥2,237K</div>
+      <div class="ksub">9件確認済み（確定）</div>
+    </div>
+    <div class="kpi b todo">
+      <div class="klbl">4月 入金済み<span class="todo-badge">要更新</span></div>
+      <div class="kval b todo-val">¥1,150K<span style="font-size:11px;color:var(--text3);margin-left:4px">※4/7時点</span></div>
+      <div class="ksub">4件 ／ 4/8〜4/26分は予定→確定の振り分けが未取得</div>
+    </div>
+    <div class="kpi a todo">
+      <div class="klbl">4月 入金予定<span class="todo-badge">要更新</span></div>
+      <div class="kval a todo-val">¥965K</div>
+      <div class="ksub">3件（4/8・4/10・4/15）／ 既に入金済の可能性あり、要確認</div>
+    </div>
+    <div class="kpi p todo">
+      <div class="klbl">4月 見込み合計<span class="todo-badge">要更新</span></div>
+      <div class="kval p todo-val">¥2,115K</div>
+      <div class="ksub">4/17以降の新規入金分は未反映</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>月別 自費入金推移</div>
+      <div style="position:relative;height:200px"><canvas id="paymentChart"></canvas></div>
+    </div>
+    <div class="card todo">
+      <div class="ctitle"><span class="cdot" style="background:var(--purple)"></span>3〜4月 治療種別内訳<span class="todo-badge">要更新</span></div>
+      <div class="prow"><span class="plbl">MRC矯正（一括・2/2）</span><div class="ptrk"><div class="pfil" style="width:100%;background:var(--purple)"></div></div><span class="pval">¥2,038K</span></div>
+      <div class="prow"><span class="plbl">インビザIGO</span><div class="ptrk"><div class="pfil" style="width:29%;background:var(--blue)"></div></div><span class="pval">¥578K</span></div>
+      <div class="prow"><span class="plbl">インプラント</span><div class="ptrk"><div class="pfil" style="width:24%;background:var(--red)"></div></div><span class="pval">¥495K</span></div>
+      <div class="prow"><span class="plbl">自費RCT＋補綴</span><div class="ptrk"><div class="pfil" style="width:13%;background:var(--teal)"></div></div><span class="pval">¥271K</span></div>
+      <div class="prow"><span class="plbl">補綴Cr/In</span><div class="ptrk"><div class="pfil" style="width:7%;background:var(--amber)"></div></div><span class="pval">¥154K</span></div>
+      <hr class="div">
+      <div class="todo-note">⚠ 治療種別の集計は4/16時点の値のまま。4/17〜4/26の入金確定後に再集計してください。</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>全入金詳細（3/1〜4/26）<span class="todo-badge">4/17以降 要追加</span></div>
+    <table class="tbl">
+      <colgroup><col style="width:55px"><col style="width:60px"><col><col style="width:100px"><col style="width:56px"></colgroup>
+      <thead><tr><th>日付</th><th>患者No</th><th>内容</th><th>金額</th><th>状況</th></tr></thead>
+      <tbody>
+        <tr><td>3/3</td><td>433</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥357,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/4</td><td>964</td><td>インビザIGO（1/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/7</td><td>129</td><td>インプラント</td><td class="mono" style="color:var(--green)">¥495,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/18</td><td>714</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--green)">¥192,500</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/21</td><td>337</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--green)">¥250,250</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/25</td><td>1047</td><td>補綴Cr カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/25</td><td>1017</td><td>MRC矯正一括</td><td class="mono" style="color:var(--green)">¥715,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/27</td><td>1046</td><td>自費RCT＋補綴Cr</td><td class="mono" style="color:var(--green)">¥138,600</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr><td>3/28</td><td>924</td><td>補綴In カムネッツ</td><td class="mono" style="color:var(--green)">¥44,000</td><td><span class="bdg bg">入金済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.04)"><td>4/3</td><td>739</td><td>インビザIGO（2/2）</td><td class="mono" style="color:var(--blue)">¥192,500</td><td><span class="bdg bb">4月済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.04)"><td>4/4</td><td>1056</td><td>MRC矯正一括</td><td class="mono" style="color:var(--blue)">¥715,000</td><td><span class="bdg bb">4月済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.04)"><td>4/7</td><td>519</td><td>補綴Cr ステイン</td><td class="mono" style="color:var(--blue)">¥110,000</td><td><span class="bdg bb">4月済</span></td></tr>
+        <tr style="background:rgba(59,130,246,.04)"><td>4/7</td><td>1053</td><td>自費RCT＋補綴Cr</td><td class="mono" style="color:var(--blue)">¥132,000</td><td><span class="bdg bb">4月済</span></td></tr>
+        <tr style="background:rgba(245,158,11,.05)"><td>4/8</td><td>510</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥357,500</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
+        <tr style="background:rgba(245,158,11,.05)"><td>4/10</td><td>180</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥286,000</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
+        <tr style="background:rgba(245,158,11,.05)"><td>4/15</td><td>506</td><td>MRC矯正（2/2）</td><td class="mono" style="color:var(--amber)">¥321,750</td><td><span class="bdg ba-bdg">予定→要確認</span></td></tr>
+        <!-- ▼ 4/17以降の入金記録をここに追加 ▼ -->
+        <tr class="todo-row"><td colspan="5" style="text-align:center;padding:14px 6px">⚠ 4/17〜4/26 の自費入金レコードを追加してください（アポツール「診療カレンダー」の入金列または「クリニックデータ → 自費」で確認）</td></tr>
+      </tbody>
+    </table>
+    <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+      <div class="rcs"><div class="rcsv" style="color:var(--green)">¥2,237,350</div><div class="rcsl">3月入金済み（確定）</div></div>
+      <div class="rcs todo"><div class="rcsv todo-val">¥1,149,500</div><div class="rcsl">4月入金済み（4/7時点）</div></div>
+      <div class="rcs todo"><div class="rcsv todo-val">¥965,250</div><div class="rcsl">4月入金予定（要確認）</div></div>
+      <div class="rcs todo"><div class="rcsv todo-val">¥4,352,100</div><div class="rcsl">3〜4月合計見込み（要更新）</div></div>
+    </div>
+    <div class="todo-note">⚠ 4/8・4/10・4/15予定の3件（合計¥965,250）は既に入金処理が完了している可能性があります。アポツールで実際の入金日を確認のうえ、状況を「入金済」に更新してください。また4/17〜4/26の新規入金は要追加です。</div>
+  </div>
+</div>
+
+<!-- ===== 3ヶ月以上予約なしタブ（4/26基準で再取得済み）===== -->
+<div id="pane-unscheduled" class="tab-pane">
+  <div class="g4">
+    <div class="kpi r">
+      <div class="klbl">3ヶ月以上 予約なし（全件）</div>
+      <div class="kval r">203</div>
+      <div class="ksub">2026/01/26以前に最終来院した未定者（4/26基準）</div>
+    </div>
+    <div class="kpi a">
+      <div class="klbl">最近3〜6ヶ月（最優先）</div>
+      <div class="kval a">37<span style="font-size:14px;color:var(--text3)">+</span></div>
+      <div class="ksub">最終来院 2025/10〜2025/12 — 直近で予約途切れ</div>
+    </div>
+    <div class="kpi g">
+      <div class="klbl">前回比 ▲68件減</div>
+      <div class="kval g">271→203</div>
+      <div class="ksub">4/17〜4/26で来院・予約復帰</div>
+    </div>
+    <div class="kpi b todo">
+      <div class="klbl">中長期（6ヶ月以上）<span class="todo-badge">概算</span></div>
+      <div class="kval b todo-val">約166</div>
+      <div class="ksub">203−37 ／ ページ2以降に格納（要追加取得）</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="ctitle"><span class="cdot" style="background:var(--amber)"></span>最近で予約が途切れた患者リスト（最終来院 2025/10〜12）<span style="font-size:9px;color:var(--text3);margin-left:auto;font-weight:400">203件中 上位37件 ／ リコール最優先群</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <div class="rcs"><div class="rcsv" style="color:var(--red)">203件</div><div class="rcsl">3ヶ月以上ブランク</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--amber)">37件</div><div class="rcsl">3〜6ヶ月（最優先）</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--green)">2025/10/28</div><div class="rcsl">最古の最終来院日</div></div>
+      <div class="rcs"><div class="rcsv" style="color:var(--blue)">2025/12/27</div><div class="rcsl">最新の最終来院日</div></div>
+    </div>
+    <table class="tbl">
+      <colgroup><col style="width:30px"><col style="width:50px"><col><col style="width:50px"><col style="width:90px"><col style="width:80px"></colgroup>
+      <thead><tr><th>#</th><th>No.</th><th>患者名</th><th>年齢</th><th>最終来院日</th><th>経過</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--text3)">1</td><td class="mono">894</td><td>満田 透生</td><td class="mono">5歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">2</td><td class="mono">895</td><td>満田 悠生</td><td class="mono">3歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">3</td><td class="mono">896</td><td>鴻 幸樹</td><td class="mono">6歳</td><td class="mono" style="color:var(--red)">2025/10/28</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">4</td><td class="mono">6</td><td>蛭川 結友</td><td class="mono">20歳</td><td class="mono" style="color:var(--red)">2025/10/29</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">5</td><td class="mono">879</td><td>角田 陽優</td><td class="mono">9歳</td><td class="mono" style="color:var(--red)">2025/11/1</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">6</td><td class="mono">354</td><td>近藤 勝斗</td><td class="mono">24歳</td><td class="mono" style="color:var(--red)">2025/11/4</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">7</td><td class="mono">29</td><td>中山 幹土</td><td class="mono">21歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">8</td><td class="mono">687</td><td>長谷川 大起</td><td class="mono">22歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">9</td><td class="mono">901</td><td>赤井 知遥</td><td class="mono">7歳</td><td class="mono" style="color:var(--red)">2025/11/7</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">10</td><td class="mono">583</td><td>西村 唯</td><td class="mono">38歳</td><td class="mono" style="color:var(--red)">2025/11/8</td><td><span class="bdg br">約6ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">11</td><td class="mono">174</td><td>西橋 可奈子</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/11/11</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">12</td><td class="mono">615</td><td>田中 厚成</td><td class="mono">13歳</td><td class="mono" style="color:var(--amber)">2025/11/12</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">13</td><td class="mono">463</td><td>杉本 崇馬</td><td class="mono">25歳</td><td class="mono" style="color:var(--amber)">2025/11/14</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">14</td><td class="mono">240</td><td>辻 佑介</td><td class="mono">48歳</td><td class="mono" style="color:var(--amber)">2025/11/18</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">15</td><td class="mono">12</td><td>舘 昂太郎</td><td class="mono">22歳</td><td class="mono" style="color:var(--amber)">2025/11/21</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">16</td><td class="mono">119</td><td>福浦 由佳</td><td class="mono">35歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">17</td><td class="mono">733</td><td>江里口 大智</td><td class="mono">19歳</td><td class="mono" style="color:var(--amber)">2025/11/25</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">18</td><td class="mono">324</td><td>藤原 温音</td><td class="mono">14歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">19</td><td class="mono">816</td><td>齋藤 瑶平</td><td class="mono">33歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">20</td><td class="mono">883</td><td>松﨑 瑚恋</td><td class="mono">4歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">21</td><td class="mono">914</td><td>嘉代 加奈子</td><td class="mono">46歳</td><td class="mono" style="color:var(--amber)">2025/11/29</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">22</td><td class="mono">926</td><td>川崎 彩奈</td><td class="mono">21歳</td><td class="mono" style="color:var(--amber)">2025/12/3</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">23</td><td class="mono">52</td><td>藤井 楓也</td><td class="mono">20歳</td><td class="mono" style="color:var(--amber)">2025/12/4</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">24</td><td class="mono">929</td><td>尹 立博文</td><td class="mono">16歳</td><td class="mono" style="color:var(--amber)">2025/12/6</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">25</td><td class="mono">830</td><td>ラウル・</td><td class="mono">28歳</td><td class="mono" style="color:var(--amber)">2025/12/9</td><td><span class="bdg ba-bdg">約5ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">26</td><td class="mono">922</td><td>西谷 亜由美</td><td class="mono">43歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">27</td><td class="mono">935</td><td>下村 亜希</td><td class="mono">49歳</td><td class="mono" style="color:var(--amber)">2025/12/12</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">28</td><td class="mono">941</td><td>後岡 純</td><td class="mono">38歳</td><td class="mono" style="color:var(--amber)">2025/12/18</td><td><span class="bdg ba-bdg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">29</td><td class="mono">330</td><td>中山 玲奈</td><td class="mono">40歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">30</td><td class="mono">950</td><td>野澤 瑠美</td><td class="mono">15歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">31</td><td class="mono">951</td><td>野澤 結美</td><td class="mono">12歳</td><td class="mono" style="color:var(--green)">2025/12/22</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">32</td><td class="mono">871</td><td>庄司 怜花</td><td class="mono">17歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">33</td><td class="mono">955</td><td>福岡 哲弥</td><td class="mono">5歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">34</td><td class="mono">956</td><td>福岡 哲典</td><td class="mono">1歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">35</td><td class="mono">957</td><td>城 公皓</td><td class="mono">7歳</td><td class="mono" style="color:var(--green)">2025/12/24</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">36</td><td class="mono">959</td><td>中尾 茜</td><td class="mono">36歳</td><td class="mono" style="color:var(--green)">2025/12/26</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+        <tr><td class="mono" style="color:var(--text3)">37</td><td class="mono">961</td><td>森本 浬多</td><td class="mono">7歳</td><td class="mono" style="color:var(--green)">2025/12/27</td><td><span class="bdg bg">約4ヶ月</span></td></tr>
+      </tbody>
+    </table>
+    <div class="todo-note">⚠ 上記37件はアポツール「未定者」ページ1から自動取得（外国人氏名等の特殊フォーマットで13件分が漏れている可能性あり、ページには50件表示）。残り約166件分（最終来院が2025/10/28以前）はページ2〜5に格納されているため、必要に応じて追加取得してください。</div>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--red)"></span>最終来院月別 患者数（37件分）</div>
+      <div class="mrow"><span class="mlbl">2025/10</span><div class="mtrk"><div class="mfil" style="width:25%;background:var(--red)"></div></div><span class="mval">4件</span></div>
+      <div class="mrow"><span class="mlbl">2025/11</span><div class="mtrk"><div class="mfil" style="width:95%;background:var(--amber)"></div></div><span class="mval">16件</span></div>
+      <div class="mrow"><span class="mlbl">2025/12</span><div class="mtrk"><div class="mfil" style="width:100%;background:var(--green)"></div></div><span class="mval">17件</span></div>
+      <hr class="div">
+      <div style="font-size:11px;color:var(--text2);line-height:1.6">直近で予約が途切れた患者は<strong style="color:var(--green)">12月最終来院グループ（17件）</strong>が最多。1月の定期検診時期を逃した方が多いと考えられ、リコール連絡の優先度が高い。</div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><span class="cdot" style="background:var(--blue)"></span>年齢層別 内訳（37件分）</div>
+      <div class="mrow"><span class="mlbl">小児(〜12)</span><div class="mtrk"><div class="mfil" style="width:65%;background:var(--purple)"></div></div><span class="mval">11件</span></div>
+      <div class="mrow"><span class="mlbl">中高生(13-19)</span><div class="mtrk"><div class="mfil" style="width:35%;background:var(--blue)"></div></div><span class="mval">6件</span></div>
+      <div class="mrow"><span class="mlbl">20代</span><div class="mtrk"><div class="mfil" style="width:50%;background:var(--teal)"></div></div><span class="mval">8件</span></div>
+      <div class="mrow"><span class="mlbl">30代</span><div class="mtrk"><div class="mfil" style="width:25%;background:var(--green)"></div></div><span class="mval">4件</span></div>
+      <div class="mrow"><span class="mlbl">40代</span><div class="mtrk"><div class="mfil" style="width:35%;background:var(--amber)"></div></div><span class="mval">6件</span></div>
+      <div class="mrow"><span class="mlbl">50代以上</span><div class="mtrk"><div class="mfil" style="width:10%;background:var(--text3)"></div></div><span class="mval">2件</span></div>
+      <hr class="div">
+      <div style="font-size:11px;color:var(--text2);line-height:1.6">小児・若年層が中心。定期検診ベースの患者層が多く、保護者連絡で再予約獲得が見込める。</div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer class="ftr">
+  apo-toolboxes.stransa.co.jp より Claude in Chrome MCP にて取得 — 2026年4月26日更新<br>
+  3月: 確定値 ／ 4月: クリニックデータ集計値（4/26時点） ／ 詳細表(コンサル・入金・キャンセル週別・未定者)は<span style="color:var(--amber)">「⚠ 要更新」マーカー</span>付きの箇所を手動で補完してください<br>
+  なないろ歯科・こども矯正歯科クリニック 内部利用
+</footer>
+
+<script>
+function showTab(tab){
+  ['today','recall','mar','apr','consult','payment','unscheduled'].forEach(t=>{
+    document.getElementById('pane-'+t).classList.toggle('active',t===tab);
+    document.getElementById('btn-'+t).classList.toggle('active',t===tab);
+  });
+  history.replaceState(null,'','#'+tab);
+  setTimeout(()=>window.dispatchEvent(new Event('resize')),50);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const hash=location.hash.replace('#','');
+  if(['today','recall','mar','apr','consult','payment','unscheduled'].includes(hash)) showTab(hash);
+  else showTab('today');
+});
+
+const chartOpts = (stacked=false) => ({
+  responsive:true, maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{stacked, ticks:{color:'#545e6f',font:{size:10}}, grid:{display:false}, border:{display:false}},
+    y:{stacked, ticks:{color:'#545e6f',font:{size:10},stepSize:5}, grid:{color:'rgba(255,255,255,0.05)'}, border:{display:false}}
+  }
+});
+
+// ドーナツ（今日の予約内訳）
+new Chart(document.getElementById('donutChart'),{
+  type:'doughnut',
+  data:{datasets:[{data:[2,8,5,3],backgroundColor:['#f59e0b','#10b981','#8b5cf6','#475569'],borderWidth:0,hoverOffset:4}]},
+  options:{responsive:true,maintainAspectRatio:true,cutout:'70%',plugins:{legend:{display:false}}}
+});
+
+// 4月リコール・キャンセル週別（要更新: 4/15週・4/22週は仮値）
+new Chart(document.getElementById('recallCancelChart'),{
+  type:'bar',
+  data:{
+    labels:['4/1週','4/8週','4/15週 (要更新)','4/22週 (要更新)'],
+    datasets:[
+      {label:'合計（無断+間際+事前+Web の内訳要取得）',data:[16,15,11,12],backgroundColor:['#ef4444','#f59e0b','rgba(245,158,11,0.5)','rgba(245,158,11,0.5)'],borderRadius:4}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:true,labels:{color:'#8892a4',font:{size:10},boxWidth:8}},title:{display:true,text:'※ 4/15週・4/22週は合計23件を仮で半分ずつ配分。実数取得後に要更新',color:'#f59e0b',font:{size:10}}},
+    scales:{
+      x:{ticks:{color:'#545e6f',font:{size:10}},grid:{display:false},border:{display:false}},
+      y:{ticks:{color:'#545e6f',font:{size:10}},grid:{color:'rgba(255,255,255,0.05)'},border:{display:false}}
+    }
+  }
+});
+
+new Chart(document.getElementById('marCancelChart'),{
+  type:'bar',
+  data:{labels:['3/2週','3/9週','3/16週','3/23週'],datasets:[{data:[13,13,13,25],backgroundColor:['#ef4444','#ef4444','#ef4444','#dc2626'],borderRadius:4}]},
+  options:chartOpts()
+});
+
+new Chart(document.getElementById('staffChart'),{
+  type:'bar',
+  data:{
+    labels:['高田','橋本','近藤','小川'],
+    datasets:[
+      {label:'成約',data:[5,7,3,3],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
+      {label:'不成約',data:[1,1,1,2],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
+      {label:'保留',data:[0,1,0,0],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
+    ]
+  },
+  options:chartOpts(true)
+});
+
+new Chart(document.getElementById('treatChart'),{
+  type:'bar',
+  data:{
+    labels:['インプラント','自費RCT','ダイレクト','MRC矯正','補綴In','補綴Cr'],
+    datasets:[
+      {label:'成約',data:[2,2,2,5,5,2],backgroundColor:'#10b981',borderRadius:4,stack:'s'},
+      {label:'不成約',data:[0,0,0,0,2,1],backgroundColor:'#ef4444',borderRadius:4,stack:'s'},
+      {label:'保留',data:[0,0,0,3,0,0],backgroundColor:'#f59e0b',borderRadius:4,stack:'s'}
+    ]
+  },
+  options:chartOpts(true)
+});
+
+new Chart(document.getElementById('paymentChart'),{
+  type:'bar',
+  data:{
+    labels:['3月','4月入金済','4月予定'],
+    datasets:[{
+      data:[2237350,1149500,965250],
+      backgroundColor:['#10b981','#3b82f6','#f59e0b'],
+      borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{ticks:{color:'#545e6f',font:{size:11}},grid:{display:false},border:{display:false}},
+      y:{ticks:{color:'#545e6f',font:{size:10},callback:v=>'¥'+(v/10000).toFixed(0)+'万'},grid:{color:'rgba(255,255,255,0.05)'},border:{display:false}}
+    }
+  }
+});
+
+// 3ヶ月以上予約なし 月別分布 — チャートはバー表示に変更したためここでは省略
+</script>
+</body>
+</html>
